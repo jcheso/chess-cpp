@@ -1,8 +1,14 @@
+#include "ChessPiece.hpp"
 #include "ChessBoard.hpp"
-
+#include "Helper.hpp"
+#include "Bishop.hpp"
+#include "King.hpp"
+#include "Knight.hpp"
+#include "Pawn.hpp"
+#include "Queen.hpp"
+#include "Rook.hpp"
 #include <iostream>
-
-using std::cout;
+using namespace std;
 
 int main()
 {
@@ -11,9 +17,10 @@ int main()
 	cout << "Testing the Chess Engine\n";
 	cout << "========================\n\n";
 
-	// ChessBoard cb;
-	// cout << '\n';
-
+	ChessBoard cb;
+	cout << '\n';
+	cout << cb.getChessPiece(R_1, F_A)->getPiece()
+		 << endl;
 	// cb.submitMove("D7", "D6");
 	// cout << '\n';
 

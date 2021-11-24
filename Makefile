@@ -1,16 +1,18 @@
 all: chess
 
-chess: chessmain.o helper.o chesspiece.o bishop.o king.o knight.o pawn.o queen.o rook.o
-	g++ -g chessmain.o helper.o chesspiece.o bishop.o king.o knight.o pawn.o queen.o rook.o -o enigma
+chess: chessmain.o helper.o chesspiece.o chessboard.o  bishop.o king.o knight.o pawn.o queen.o rook.o
+	g++ -g chessmain.o helper.o chesspiece.o chessboard.o bishop.o king.o knight.o pawn.o queen.o rook.o -o chess
 
-chessmain.o: chessmain.cpp
+chessmain.o: chessmain.cpp helper.hpp
+
 	g++ -Wall -g -c chessmain.cpp
-
 helper.o: helper.cpp helper.hpp
 	g++ -Wall -g -c helper.cpp helper.hpp
-
-chesspiece.o: chesspiece.cpp chesspiece.hpp
+chesspiece.o: chesspiece.cpp chesspiece.hpp chessboard.hpp
 	g++ -Wall -g -c chesspiece.cpp chesspiece.hpp
+
+chessboard.o: chessboard.cpp chessboard.hpp chesspiece.hpp
+	g++ -Wall -g -c chessboard.cpp chessboard.hpp
 
 bishop.o: bishop.cpp bishop.hpp
 	g++ -Wall -g -c bishop.cpp bishop.hpp

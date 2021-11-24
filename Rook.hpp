@@ -1,13 +1,16 @@
 #ifndef ROOK_HPP
 #define ROOK_HPP
-#include "Helper.hpp"
 #include "ChessPiece.hpp"
 using namespace std;
 
 class Rook : public ChessPiece
 {
-protected:
 public:
+    Rook(char colour);
+    ~Rook();
+
+private:
+    virtual char getPiece();
 };
 
 #endif

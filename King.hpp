@@ -1,13 +1,16 @@
 #ifndef KING_HPP
 #define KING_HPP
-#include "Helper.hpp"
 #include "ChessPiece.hpp"
 using namespace std;
 
 class King : public ChessPiece
 {
-protected:
 public:
+    King(char colour);
+    ~King();
+
+private:
+    virtual char getPiece();
 };
 
 #endif

@@ -1,13 +1,16 @@
 #ifndef QUEEN_HPP
 #define QUEEN_HPP
-#include "Helper.hpp"
 #include "ChessPiece.hpp"
 using namespace std;
 
 class Queen : public ChessPiece
 {
-protected:
 public:
+    Queen(char colour);
+    ~Queen();
+
+private:
+    virtual char getPiece();
 };
 
 #endif
