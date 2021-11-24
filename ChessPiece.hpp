@@ -9,8 +9,6 @@ class ChessPiece
 private:
     // Check if the move is legal for the specific piece
     bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
-
-protected:
     std::string name;
     char colour;
 

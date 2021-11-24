@@ -30,16 +30,16 @@ ChessBoard::ChessBoard()
 
     // Fill the board with White Pieces
     for (int file = F_A; file <= F_H; file++)
-        board[R_2][file] = new Pawn('B', "Pawn");
+        board[R_2][file] = new Pawn('W', "Pawn");
 
-    board[R_1][F_A] = new Rook('B', "Rook");
-    board[R_1][F_B] = new Knight('B', "Knight");
-    board[R_1][F_C] = new Bishop('B', "Bishop");
-    board[R_1][F_D] = new King('B', "King");
-    board[R_1][F_E] = new Queen('B', "Queen");
-    board[R_1][F_F] = new Bishop('B', "Bishop");
-    board[R_1][F_G] = new Knight('B', "Knight");
-    board[R_1][F_H] = new Rook('B', "Rook");
+    board[R_1][F_A] = new Rook('W', "Rook");
+    board[R_1][F_B] = new Knight('W', "Knight");
+    board[R_1][F_C] = new Bishop('W', "Bishop");
+    board[R_1][F_D] = new King('W', "King");
+    board[R_1][F_E] = new Queen('W', "Queen");
+    board[R_1][F_F] = new Bishop('W', "Bishop");
+    board[R_1][F_G] = new Knight('W', "Knight");
+    board[R_1][F_H] = new Rook('W', "Rook");
 
     // Fill the remainder of the board with nullptr
     for (int rank = R_3; rank <= R_6; rank++)
