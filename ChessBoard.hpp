@@ -13,11 +13,12 @@ private:
     bool isStalemate();
     void resetGame();
     void printBoard();
+    // checkPlayerTurn
 
 public:
     ChessBoard();
     ~ChessBoard();
-    void submitMove(std::string moveFrom, std::string moveTo);
+    bool submitMove(std::string moveFrom, std::string moveTo);
     ChessPiece *getChessPiece(int rank, int file);
 };
 

@@ -51,28 +51,57 @@ ChessBoard::ChessBoard()
 }
 ChessBoard::~ChessBoard() {}
 ChessPiece *ChessBoard::getChessPiece(int rank, int file) { return this->board[rank][file]; }
-void ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
+bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 {
+
     // Parse the input strings into two sets of coordinates
-    int rankFrom = moveFrom[1] - '0';
-    int fileFrom = static_cast<FileEnum>(moveFrom[0] - 'A');
-    int rankTo = moveTo[1] - '0';
-    int fileTo = static_cast<FileEnum>(moveTo[0] - 'A');
+    int rankFrom = moveFrom[1] - 1 - '0';
+    int fileFrom = moveFrom[0] - 'A';
+    int rankTo = moveTo[1] - 1 - '0';
+    int fileTo = moveTo[0] - 'A';
+
+    // Check if it is a valid board position - put this in a function?
+    if (!((R_1 <= rankFrom <= R_8) && ('A' <= fileFrom <= 'G')) && ((R_1 <= rankTo <= R_8) && ('A' <= fileTo <= 'G')))
+    {
+        std::cerr << "Not a valid board position!" << std::endl;
+        return false;
+    }
+
     // Get the piece at that position
-    // Check if nullptr
-    // Else if it is that piece's turn
+    ChessPiece *pieceToMove = this->getChessPiece(rankFrom, fileFrom);
+
+    // Check if there is a piece at the position
+    if (pieceToMove->getName() == "Free")
+    {
+        std::cout << "There is no piece at position " << moveFrom << "!" << std::endl;
+        return false;
+    }
+
+    // Check if the piece belongs to the player who's turn it is.
+    if (isWhiteTurn && pieceToMove->getColour() == 'B')
+    {
+        std::cout << "It is not Black's turn to move!" << std::endl;
+        return false;
+    }
+    else if (!isWhiteTurn && pieceToMove->getColour() == 'W')
+    {
+        std::cout << "It is not White's turn to move!" << std::endl;
+        return false;
+    }
+
     // Then check if the move is valid
+
     // Print the move to console
     if (isWhiteTurn)
     {
-        std::cout << "White's" << this->getChessPiece(rankFrom, fileFrom)->getName() << "moves from "
-                  << moveFrom[1] << moveFrom[2] << " to " << moveTo[1] << moveTo[2] << std::endl;
+        std::cout << "White's " << this->getChessPiece(rankFrom, fileFrom)->getName() << " moves from "
+                  << moveFrom << " to " << moveTo << std::endl;
         isWhiteTurn = false;
     }
     else
     {
-        std::cout << "White's" << this->getChessPiece(rankFrom, fileFrom)->getName() << "moves from "
-                  << moveFrom[1] << moveFrom[2] << " to " << moveTo[1] << moveTo[2] << std::endl;
+        std::cout << "Black's " << this->getChessPiece(rankFrom, fileFrom)->getName() << " moves from "
+                  << moveFrom << " to " << moveTo << std::endl;
         isWhiteTurn = true;
     }
 }

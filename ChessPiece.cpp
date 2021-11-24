@@ -9,7 +9,7 @@ ChessPiece::~ChessPiece() {}
 // ** GETTERS **
 char ChessPiece::getColour() { return this->colour; }
 std::string ChessPiece::getName() { return this->name; }
-bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) {}
+bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
 bool ChessPiece::isValidMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)
 {
     // Create a pointer to the piece(or empty spot) on the board
