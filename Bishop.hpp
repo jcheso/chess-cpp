@@ -1,8 +1,8 @@
 #ifndef BISHOP_HPP
 #define BISHOP_HPP
 #include "ChessPiece.hpp"
-using namespace std;
-
+#include "Helper.hpp"
+#include <string>
 class Bishop : public ChessPiece
 {
 public:
@@ -10,7 +10,7 @@ public:
     ~Bishop();
 
 private:
-    virtual char getPiece();
+    std::string name = "Bishop";
 };
 
 #endif

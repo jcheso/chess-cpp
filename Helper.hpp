@@ -1,15 +1,13 @@
 #ifndef HELPER_HPP
 #define HELPER_HPP
-#include "ChessPiece.hpp"
-#include "ChessBoard.hpp"
-#include "Bishop.hpp"
-#include "King.hpp"
-#include "Knight.hpp"
-#include "Pawn.hpp"
-#include "Queen.hpp"
-#include "Rook.hpp"
-#include <iostream>
-using namespace std;
+// #include "ChessPiece.hpp"
+// #include "ChessBoard.hpp"
+// #include "Bishop.hpp"
+// #include "King.hpp"
+// #include "Knight.hpp"
+// #include "Pawn.hpp"
+// #include "Queen.hpp"
+// #include "Rook.hpp"
 
 enum File
 {

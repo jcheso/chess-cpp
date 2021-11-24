@@ -1,10 +1,5 @@
 #include "Pawn.hpp"
-using namespace std;
+#include <string>
 
 Pawn::Pawn(char colour) : ChessPiece(colour) {}
 Pawn::~Pawn() {}
-
-char Pawn::getPiece()
-{
-    return 'P';
-}

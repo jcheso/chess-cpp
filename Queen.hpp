@@ -1,7 +1,7 @@
 #ifndef QUEEN_HPP
 #define QUEEN_HPP
 #include "ChessPiece.hpp"
-using namespace std;
+#include <string>
 
 class Queen : public ChessPiece
 {
@@ -10,7 +10,7 @@ public:
     ~Queen();
 
 private:
-    virtual char getPiece();
+    std::string name = "Queen";
 };
 
 #endif

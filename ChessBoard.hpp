@@ -1,14 +1,14 @@
 #ifndef CHESS_BOARD_HPP
 #define CHESS_BOARD_HPP
-class ChessBoard;
+class ChessPiece;
 #include "ChessPiece.hpp"
-using namespace std;
+#include <string>
 
 class ChessBoard
 {
 private:
     ChessPiece *board[8][8];
-    bool isWhiteTurn;
+    bool isWhiteTurn = true;
     bool isGameComplete;
     bool isStalemate();
     void resetGame();
@@ -17,7 +17,7 @@ private:
 public:
     ChessBoard();
     ~ChessBoard();
-
+    void submitMove(std::string moveFrom, std::string moveTo);
     ChessPiece *getChessPiece(int rank, int file);
 };
 

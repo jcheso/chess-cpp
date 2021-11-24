@@ -19,9 +19,7 @@ int main()
 
 	ChessBoard cb;
 	cout << '\n';
-	cout << cb.getChessPiece(R_1, F_A)->getPiece()
-		 << endl;
-	// cb.submitMove("D7", "D6");
+	cb.submitMove("D7", "D6");
 	// cout << '\n';
 
 	// cb.submitMove("D4", "H6");

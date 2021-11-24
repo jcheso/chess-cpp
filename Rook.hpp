@@ -1,7 +1,7 @@
 #ifndef ROOK_HPP
 #define ROOK_HPP
 #include "ChessPiece.hpp"
-using namespace std;
+#include <string>
 
 class Rook : public ChessPiece
 {
@@ -10,7 +10,7 @@ public:
     ~Rook();
 
 private:
-    virtual char getPiece();
+    std::string name = "Rook";
 };
 
 #endif

@@ -1,11 +1,18 @@
 #include "ChessBoard.hpp"
+#include "ChessPiece.hpp"
+#include "Pawn.hpp"
+#include "Bishop.hpp"
+#include "Rook.hpp"
+#include "Knight.hpp"
+#include "Queen.hpp"
+#include "King.hpp"
 #include "Helper.hpp"
-using namespace std;
+#include <string>
+#include <iostream>
 
-bool ChessBoard::isStalemate() {}
+bool ChessBoard::isStalemate() { return false; }
 void ChessBoard::resetGame() {}
 void ChessBoard::printBoard() {}
-
 ChessBoard::ChessBoard()
 {
     // Fill the board with Black Pieces
@@ -40,11 +47,29 @@ ChessBoard::ChessBoard()
         for (int file = F_A; file < F_H; file++)
             board[rank][file] = new ChessPiece('.');
     }
-    cout << "A new chess game is started!" << endl;
+    std::cout << "A new chess game is started!" << std::endl;
 }
-
 ChessBoard::~ChessBoard() {}
-ChessPiece *ChessBoard::getChessPiece(int rank, int file)
+ChessPiece *ChessBoard::getChessPiece(int rank, int file) { return this->board[rank][file]; }
+void ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 {
-    return this->board[rank][file];
+    int rankFrom, fileFrom;
+    // Parse the input strings into two sets of coordinates
+    // Get the piece at that position
+    // Check if nullptr
+    // Else if it is that piece's turn
+    // Then check if the move is valid
+    // Print the move to console
+    if (isWhiteTurn)
+    {
+        std::cout << "White's" << this->getChessPiece(rankFrom, fileFrom)->getName() << "moves from "
+                  << moveFrom[1] << moveFrom[2] << " to " << moveTo[1] << moveTo[2] << std::endl;
+        isWhiteTurn = false;
+    }
+    else
+    {
+        std::cout << "White's" << this->getChessPiece(rankFrom, fileFrom)->getName() << "moves from "
+                  << moveFrom[1] << moveFrom[2] << " to " << moveTo[1] << moveTo[2] << std::endl;
+        isWhiteTurn = true;
+    }
 }

@@ -1,10 +1,5 @@
 #include "Queen.hpp"
-using namespace std;
+#include <string>
 
 Queen::Queen(char colour) : ChessPiece(colour) {}
 Queen::~Queen() {}
-
-char Queen::getPiece()
-{
-    return 'Q';
-}

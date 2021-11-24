@@ -10,7 +10,7 @@ public:
     ~King();
 
 private:
-    virtual char getPiece();
+    string name = "King";
 };
 
 #endif

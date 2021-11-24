@@ -1,8 +1,7 @@
 #ifndef PAWN_HPP
 #define PAWN_HPP
 #include "ChessPiece.hpp"
-using namespace std;
-
+#include <string>
 class Pawn : public ChessPiece
 {
 public:
@@ -10,7 +9,7 @@ public:
     ~Pawn();
 
 private:
-    virtual char getPiece();
+    std::string name = "Pawn";
 };
 
 #endif
