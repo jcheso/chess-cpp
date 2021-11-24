@@ -17,6 +17,7 @@ private:
     void addPiece();
     void removePiece();
     void setBoard();
+    void clearBoard();
 
 public:
     ChessBoard();

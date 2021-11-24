@@ -11,6 +11,7 @@
 #include <iostream>
 
 bool ChessBoard::isStalemate() { return false; }
+void ChessBoard::clearBoard() {}
 void ChessBoard::setBoard()
 {
     // Fill the board with Black Pieces
@@ -49,12 +50,15 @@ void ChessBoard::setBoard()
 }
 void ChessBoard::resetGame()
 {
-    // Delete all the heap allocated objects on the board
+    // clearBoard()
     setBoard();
 }
 void ChessBoard::printBoard() {}
 ChessBoard::ChessBoard() { setBoard(); }
-ChessBoard::~ChessBoard() {}
+ChessBoard::~ChessBoard()
+{
+    // Call clearBoard()
+}
 ChessPiece *ChessBoard::getChessPiece(int rank, int file) { return this->board[rank][file]; }
 bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 {
@@ -106,6 +110,8 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
         return false;
     }
 
+    // ? Keep a 2D set of possible moves and just check if this move is in there, then recalculate each turn for every piece?
+    // ? This way we can check for checkmate and also check for stalemate - i.e. set contains king coordinates or set is empty.
     // Make the move, set target to piece and original position to free
     this->board[toRank][toFile] = pieceToMove;
     pieceToMove->isFirstMove = false;
