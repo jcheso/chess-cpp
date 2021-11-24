@@ -8,8 +8,8 @@ class ChessPiece
 {
 private:
     // Check if the move is legal for the specific piece
-    std::string name;
     char colour;
+    std::string name;
 
 protected:
     virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
@@ -19,6 +19,7 @@ public:
     ChessPiece(char colour, std::string name);
     ~ChessPiece();
 
+    bool isFirstMove = true;
     // ** GETTERS **
     // Get the name of the piece
     std::string getName();

@@ -13,7 +13,10 @@ private:
     bool isStalemate();
     void resetGame();
     void printBoard();
-    // checkPlayerTurn
+    void makeMove();
+    void addPiece();
+    void removePiece();
+    void setBoard();
 
 public:
     ChessBoard();

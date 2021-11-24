@@ -4,4 +4,4 @@
 
 King::King(char colour, std::string name) : ChessPiece(colour, name) {}
 King::~King() {}
-bool King::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) {}
+bool King::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
