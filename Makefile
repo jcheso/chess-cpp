@@ -1,6 +1,6 @@
 all: chess
 
-chess: chessmain.o helper.o chesspiece.o chessboard.o  bishop.o king.o knight.o pawn.o queen.o rook.o
+chess: chessmain.o helper.o chesspiece.o chessboard.o bishop.o king.o knight.o pawn.o queen.o rook.o
 	g++ -g chessmain.o helper.o chesspiece.o chessboard.o bishop.o king.o knight.o pawn.o queen.o rook.o -o chess
 
 chessmain.o: chessmain.cpp  helper.hpp

@@ -9,7 +9,7 @@
 // #include "Queen.hpp"
 // #include "Rook.hpp"
 
-enum File
+enum FileEnum
 {
     F_A,
     F_B,
@@ -21,7 +21,7 @@ enum File
     F_H,
 };
 
-enum Rank
+enum RankEnum
 {
     R_1,
     R_2,

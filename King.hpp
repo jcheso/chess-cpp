@@ -6,11 +6,10 @@ using namespace std;
 class King : public ChessPiece
 {
 public:
-    King(char colour);
+    King(char colour, std::string name);
     ~King();
 
 private:
-    string name = "King";
 };
 
 #endif

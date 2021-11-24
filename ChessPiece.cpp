@@ -3,7 +3,7 @@
 #include <string>
 
 // ** Constructor, Destructor, Copy Constructor, Equals Assignment Overload **
-ChessPiece::ChessPiece(char colour) : colour(colour) {}
+ChessPiece::ChessPiece(char colour, std::string name) : colour(colour), name(name) {}
 ChessPiece::~ChessPiece() {}
 
 // ** GETTERS **

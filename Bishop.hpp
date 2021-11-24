@@ -6,11 +6,8 @@
 class Bishop : public ChessPiece
 {
 public:
-    Bishop(char colour);
+    Bishop(char colour, std::string name);
     ~Bishop();
-
-private:
-    std::string name = "Bishop";
 };
 
 #endif

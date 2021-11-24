@@ -6,11 +6,10 @@
 class Rook : public ChessPiece
 {
 public:
-    Rook(char colour);
+    Rook(char colour, std::string name);
     ~Rook();
 
 private:
-    std::string name = "Rook";
 };
 
 #endif

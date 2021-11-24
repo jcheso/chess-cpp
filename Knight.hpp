@@ -5,11 +5,10 @@
 class Knight : public ChessPiece
 {
 public:
-    Knight(char colour);
+    Knight(char colour, std::string name);
     ~Knight();
 
 private:
-    std::string name = "Knight";
 };
 
 #endif

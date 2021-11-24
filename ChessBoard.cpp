@@ -16,36 +16,36 @@ void ChessBoard::printBoard() {}
 ChessBoard::ChessBoard()
 {
     // Fill the board with Black Pieces
-    for (int file = F_A; file < F_H; file++)
-        board[R_7][file] = new Pawn('B');
+    for (int file = F_A; file <= F_H; file++)
+        board[R_7][file] = new Pawn('B', "Pawn");
 
-    board[R_8][F_A] = new Rook('B');
-    board[R_8][F_B] = new Knight('B');
-    board[R_8][F_C] = new Bishop('B');
-    board[R_8][F_D] = new King('B');
-    board[R_8][F_E] = new Queen('B');
-    board[R_8][F_F] = new Bishop('B');
-    board[R_8][F_G] = new Knight('B');
-    board[R_8][F_H] = new Rook('B');
+    board[R_8][F_A] = new Rook('B', "Rook");
+    board[R_8][F_B] = new Knight('B', "Knight");
+    board[R_8][F_C] = new Bishop('B', "Bishop");
+    board[R_8][F_D] = new King('B', "King");
+    board[R_8][F_E] = new Queen('B', "Queen");
+    board[R_8][F_F] = new Bishop('B', "Bishop");
+    board[R_8][F_G] = new Knight('B', "Knight");
+    board[R_8][F_H] = new Rook('B', "Rook");
 
     // Fill the board with White Pieces
-    for (int file = F_A; file < F_H; file++)
-        board[R_2][file] = new Pawn('B');
+    for (int file = F_A; file <= F_H; file++)
+        board[R_2][file] = new Pawn('B', "Pawn");
 
-    board[R_1][F_A] = new Rook('B');
-    board[R_1][F_B] = new Knight('B');
-    board[R_1][F_C] = new Bishop('B');
-    board[R_1][F_D] = new King('B');
-    board[R_1][F_E] = new Queen('B');
-    board[R_1][F_F] = new Bishop('B');
-    board[R_1][F_G] = new Knight('B');
-    board[R_1][F_H] = new Rook('B');
+    board[R_1][F_A] = new Rook('B', "Rook");
+    board[R_1][F_B] = new Knight('B', "Knight");
+    board[R_1][F_C] = new Bishop('B', "Bishop");
+    board[R_1][F_D] = new King('B', "King");
+    board[R_1][F_E] = new Queen('B', "Queen");
+    board[R_1][F_F] = new Bishop('B', "Bishop");
+    board[R_1][F_G] = new Knight('B', "Knight");
+    board[R_1][F_H] = new Rook('B', "Rook");
 
     // Fill the remainder of the board with nullptr
-    for (int rank = R_3; rank < R_6; rank++)
+    for (int rank = R_3; rank <= R_6; rank++)
     {
-        for (int file = F_A; file < F_H; file++)
-            board[rank][file] = new ChessPiece('.');
+        for (int file = F_A; file <= F_H; file++)
+            board[rank][file] = new ChessPiece('.', "Free");
     }
     std::cout << "A new chess game is started!" << std::endl;
 }
@@ -53,8 +53,11 @@ ChessBoard::~ChessBoard() {}
 ChessPiece *ChessBoard::getChessPiece(int rank, int file) { return this->board[rank][file]; }
 void ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 {
-    int rankFrom, fileFrom;
     // Parse the input strings into two sets of coordinates
+    int rankFrom = moveFrom[1] - '0';
+    int fileFrom = static_cast<FileEnum>(moveFrom[0] - 'A');
+    int rankTo = moveTo[1] - '0';
+    int fileTo = static_cast<FileEnum>(moveTo[0] - 'A');
     // Get the piece at that position
     // Check if nullptr
     // Else if it is that piece's turn
