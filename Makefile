@@ -34,4 +34,4 @@ rook.o: rook.cpp rook.hpp
 	g++ -Wall -g -c rook.cpp rook.hpp
 
 clean:
-	rm -f *.o chess
+	rm -f *.o *.hpp.gch chess
