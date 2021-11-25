@@ -15,8 +15,8 @@ bool ChessPiece::isValidMove(int fromRank, int fromFile, int toRank, int toFile,
 {
     // Create a pointer to the piece(or empty spot) on the board
     ChessPiece *targetPosition = cb->getChessPiece(toRank, toFile);
-    // If the position is the opposite player or is empty, check if the move is valid for the specific piece
-    if (targetPosition->getName() == "Free" || this->colour != targetPosition->getColour())
+    // If the position is the opposite player or is empty (i.e. not the players piece), check if the move is valid for the specific piece
+    if (this->colour != targetPosition->getColour())
         return isLegalMove(fromRank, fromFile, toRank, toFile, cb);
     else
         return false;

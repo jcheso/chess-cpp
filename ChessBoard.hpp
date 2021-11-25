@@ -12,7 +12,7 @@ private:
     bool isGameComplete;
     bool isStalemate();
     void resetGame();
-    void printBoard();
+
     void makeMove();
     void addPiece();
     void removePiece();
@@ -23,6 +23,7 @@ public:
     ChessBoard();
     ~ChessBoard();
     bool submitMove(std::string moveFrom, std::string moveTo);
+    void printBoard();
     ChessPiece *getChessPiece(int rank, int file);
 };
 

@@ -9,7 +9,7 @@
 #include "Helper.hpp"
 #include <string>
 #include <iostream>
-
+#include <iomanip>
 bool ChessBoard::isStalemate() { return false; }
 void ChessBoard::clearBoard() {}
 void ChessBoard::setBoard()
@@ -53,7 +53,44 @@ void ChessBoard::resetGame()
     // clearBoard()
     setBoard();
 }
-void ChessBoard::printBoard() {}
+void ChessBoard::printBoard()
+{
+    if (this->isWhiteTurn)
+    {
+        std::cout << std::setw(20) << "                            **White's turn to move!**" << std::endl;
+    }
+    else
+    {
+        std::cout << std::setw(20) << "                            **Black's turn to move!**" << std::endl;
+    }
+    std::cout
+        << "\n"
+        << "|----------------------------------------------------------------------------------|" << std::endl;
+    std::cout << std::setw(2) << "|     ";
+    std::cout << "|   A  |  |  B   |  |  C   |  |  D   |  |  E   |  |  F   |  |  G   |  |  H   |" << std::endl;
+    // std::cout << std::setw(2) << " | "
+    for (int rank = R_8; rank >= R_1; rank--)
+    {
+        std::cout << std::setw(3);
+        std::cout << "|  " << rank + 1 << " ";
+        for (int file = F_A; file <= F_H; file++)
+        {
+            if (this->getChessPiece(rank, file)->getName() != "Free")
+            {
+                std::cout << std::setw(2) << " | ";
+                std::cout << this->getChessPiece(rank, file)->getColour() << "_" << this->getChessPiece(rank, file)->getName()[0] << this->getChessPiece(rank, file)->getName()[1];
+                std::cout << std::setw(2) << " | ";
+            }
+            else
+            {
+                std::cout << std::setw(2) << " | ";
+                std::cout << std::setw(7) << " | ";
+            }
+        }
+        std::cout << "\n"
+                  << "|----------------------------------------------------------------------------------|" << std::endl;
+    }
+}
 ChessBoard::ChessBoard() { setBoard(); }
 ChessBoard::~ChessBoard()
 {
