@@ -11,8 +11,6 @@ private:
     bool isWhiteTurn = true;
     bool isGameComplete;
     bool isStalemate();
-    void resetGame();
-
     void makeMove();
     void addPiece();
     void removePiece();
@@ -24,6 +22,7 @@ public:
     ~ChessBoard();
     bool submitMove(std::string moveFrom, std::string moveTo);
     void printBoard();
+    void resetBoard();
     ChessPiece *getChessPiece(int rank, int file);
 };
 

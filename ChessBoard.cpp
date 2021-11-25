@@ -58,7 +58,7 @@ void ChessBoard::setBoard()
     std::cout << "A new chess game is started!" << std::endl;
 }
 
-void ChessBoard::resetGame()
+void ChessBoard::resetBoard()
 {
     clearBoard();
     setBoard();
