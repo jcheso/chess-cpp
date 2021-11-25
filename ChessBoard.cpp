@@ -10,17 +10,67 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+
+ChessBoard::ChessBoard() { setBoard(); }
+ChessBoard::~ChessBoard() { clearBoard(); }
+
 bool ChessBoard::isStalemate() { return false; }
+bool ChessBoard::isInCheck()
+{
+
+    char colourToCheck;
+    char oppositeTeam;
+    int kingToCheckRank;
+    int kingToCheckFile;
+
+    // Check if it is white or black turn and set targets accordingly
+    if (this->isWhiteTurn)
+    {
+        colourToCheck = 'W';
+        oppositeTeam = 'B';
+    }
+    else
+    {
+        colourToCheck = 'B';
+        oppositeTeam = 'W';
+    }
+    // If after the move it is blacks turn, find the black king and save the coordinates
+    for (int rank = R_8; rank >= R_1; rank--)
+    {
+        for (int file = F_A; file <= F_H; file++)
+        {
+            if (this->getChessPiece(rank, file)->getName() == "King" && this->getChessPiece(rank, file)->getColour() == colourToCheck)
+            {
+                kingToCheckRank = rank;
+                kingToCheckFile = file;
+            }
+        }
+    }
+    // Iterate through all of the board and check if piece is white
+    for (int rank = R_8; rank >= R_1; rank--)
+    {
+        for (int file = F_A; file <= F_H; file++)
+        // If it is, for that piece checkIsValidMove() for every coordinate of the map
+        // Check each coordinate, if it = the black kings coordinates return true
+        {
+            if (this->getChessPiece(rank, file)->getColour() == oppositeTeam && this->getChessPiece(rank, file)->isValidMove(rank, file, kingToCheckRank, kingToCheckFile, this))
+                return true;
+        }
+    }
+
+    // Else return false
+
+    return false;
+}
 void ChessBoard::clearBoard()
 {
     for (int rank = R_8; rank >= R_1; rank--)
     {
         for (int file = F_A; file <= F_H; file++)
-        {
             delete this->getChessPiece(rank, file);
-        }
     }
 }
+
 void ChessBoard::setBoard()
 {
     // Fill the board with Black Pieces
@@ -56,6 +106,8 @@ void ChessBoard::setBoard()
             board[rank][file] = new ChessPiece('.', "Free");
     }
     std::cout << "A new chess game is started!" << std::endl;
+    // Set white's turn
+    isWhiteTurn = true;
 }
 
 void ChessBoard::resetBoard()
@@ -106,17 +158,14 @@ void ChessBoard::printBoard()
                   << "|----------------------------------------------------------------------------------|" << std::endl;
     }
 }
-ChessBoard::ChessBoard() { setBoard(); }
 
-ChessBoard::~ChessBoard()
-{
-    // Call clearBoard()
-}
 ChessPiece *ChessBoard::getChessPiece(int rank, int file) { return this->board[rank][file]; }
 
 bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 {
-    // TODO - Move these shared functions to the helper class
+    // TODO - Split up into smaller functions
+    // ? Consider storing the from/to in the object itself as variables, so we can access them everywhere instead of passing them around
+
     // Parse the input strings into two sets of coordinates
     int fromRank = moveFrom[1] - 1 - '0';
     int fromFile = moveFrom[0] - 'A';
@@ -193,6 +242,11 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     this->board[toRank][toFile] = pieceToMove;
     pieceToMove->isFirstMove = false;
     this->board[fromRank][fromFile] = new ChessPiece('.', "Free");
+
+    if (isWhiteTurn && isInCheck())
+        std::cout << "White is in check" << std::endl;
+    else if (!isWhiteTurn && isInCheck())
+        std::cout << "Black is in check" << std::endl;
 
     return true;
 }

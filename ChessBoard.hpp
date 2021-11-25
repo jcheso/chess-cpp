@@ -23,6 +23,7 @@ public:
     bool submitMove(std::string moveFrom, std::string moveTo);
     void printBoard();
     void resetBoard();
+    bool isInCheck();
     ChessPiece *getChessPiece(int rank, int file);
 };
 

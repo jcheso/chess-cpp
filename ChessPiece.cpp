@@ -1,4 +1,5 @@
 #include "ChessPiece.hpp"
+#include "Helper.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -8,6 +9,13 @@ ChessPiece::ChessPiece(char colour, std::string name) : colour(colour), name(nam
 ChessPiece::~ChessPiece() {}
 
 // ** GETTERS **
+// Iterate through every possible move and see if it is valid
+bool ChessPiece::canTakePiece(int rank, int file, int rankToCheck, int fileToCheck, ChessBoard *cb)
+{
+
+    return false;
+}
+
 bool ChessPiece::isPositionFree()
 {
     if (this->getName() == "Free")
@@ -135,7 +143,6 @@ bool ChessPiece::freeSquaresVertical(int fromRank, int fromFile, int toRank, int
     return true;
 }
 
-// TODO - Fix this first
 bool ChessPiece::freeSquaresDiagonal(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb)
 {
     std::string fileDirection = pathDetails[1];

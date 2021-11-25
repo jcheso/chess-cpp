@@ -5,6 +5,7 @@ class ChessBoard;
 #include <string>
 #include <vector>
 
+// TODO - Store the rank & file of each chess piece inside it so we can getCoords
 class ChessPiece
 {
 private:
@@ -18,8 +19,8 @@ protected:
 public:
     // ** Constructor, Destructor, Copy Constructor, Equals Assignment Overload **
     ChessPiece(char colour, std::string name);
-    ~ChessPiece();
-
+    virtual ~ChessPiece();
+    bool canTakePiece(int rank, int file, int rankToCheck, int fileToCheck, ChessBoard *cb);
     bool isFirstMove = true;
     // ** GETTERS **
     // Get the name of the piece

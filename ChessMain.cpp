@@ -14,6 +14,9 @@ int main()
 {
 
 	// TODO: Change the string checks to enum values instead
+	// TODO: Only let the player move the King if player is in check
+	// TODO: Check if it is checkMate
+	// TODO: Check for stalemate
 
 	cout << "========================\n";
 	cout << "Testing the Chess Engine\n";
@@ -33,8 +36,6 @@ int main()
 	cout << '\n';
 
 	cb.submitMove("F8", "B4");
-	cout << '\n';
-	cb.printBoard();
 	cout << '\n';
 
 	cout << "=========================\n";
@@ -81,12 +82,14 @@ int main()
 	cout << '\n';
 
 	cb.submitMove("E2", "E6");
+
 	cb.submitMove("F7", "E6");
 	cout << '\n';
 
 	cb.submitMove("D3", "G6");
 	cout << '\n';
 
+	cb.printBoard();
 	// // ** PAWN UNIT TESTS **
 	// cout << "Test White pawn can move forward by 2" << endl;
 	// cb.submitMove("A2", "A4");
