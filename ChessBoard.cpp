@@ -15,6 +15,59 @@ ChessBoard::ChessBoard() { setBoard(); }
 ChessBoard::~ChessBoard() { clearBoard(); }
 
 bool ChessBoard::isStalemate() { return false; }
+
+// !! FIX THIS NEXT
+bool ChessBoard::isCheckmate()
+{
+
+    char colourToCheck;
+    char oppositeTeam;
+    int kingToCheckRank;
+    int kingToCheckFile;
+
+    if (this->isWhiteTurn)
+    {
+        colourToCheck = 'W';
+        oppositeTeam = 'B';
+    }
+    else
+    {
+        colourToCheck = 'B';
+        oppositeTeam = 'W';
+    }
+
+    getKingCoordinates(kingToCheckRank, kingToCheckFile, colourToCheck);
+
+    ChessPiece *KingInCheck = this->getChessPiece(kingToCheckRank, kingToCheckFile);
+
+    for (int rank = R_8; rank >= R_1; rank--)
+    {
+        for (int file = F_A; file <= F_H; file++)
+        {
+            // Check if it can move somewhere, then check if it is still in check in that move - repeat for all possible moves
+            if ((KingInCheck->isValidMove(kingToCheckRank, kingToCheckFile, rank, file, this)) && (!KingInCheck->isPieceInCheck(rank, file, oppositeTeam, this)))
+                return false;
+        }
+    }
+
+    return true;
+}
+
+void ChessBoard::getKingCoordinates(int &kingRank, int &kingFile, char colour)
+{
+    for (int rank = R_8; rank >= R_1; rank--)
+    {
+        for (int file = F_A; file <= F_H; file++)
+        {
+            if (this->getChessPiece(rank, file)->getName() == "King" && this->getChessPiece(rank, file)->getColour() == colour)
+            {
+                kingRank = rank;
+                kingFile = file;
+            }
+        }
+    }
+}
+
 bool ChessBoard::isInCheck()
 {
 
@@ -34,34 +87,34 @@ bool ChessBoard::isInCheck()
         colourToCheck = 'B';
         oppositeTeam = 'W';
     }
+
     // If after the move it is blacks turn, find the black king and save the coordinates
-    for (int rank = R_8; rank >= R_1; rank--)
-    {
-        for (int file = F_A; file <= F_H; file++)
-        {
-            if (this->getChessPiece(rank, file)->getName() == "King" && this->getChessPiece(rank, file)->getColour() == colourToCheck)
-            {
-                kingToCheckRank = rank;
-                kingToCheckFile = file;
-            }
-        }
-    }
     // Iterate through all of the board and check if piece is white
+    getKingCoordinates(kingToCheckRank, kingToCheckFile, colourToCheck);
+
+    ChessPiece *KingInCheck = this->getChessPiece(kingToCheckRank, kingToCheckFile);
+
+    if (this->isPieceInCheck(kingToCheckRank, kingToCheckFile, oppositeTeam))
+        return true;
+
+    return false;
+}
+
+bool ChessBoard::isPieceInCheck(int rankToCheck, int fileToCheck, char oppositeTeam)
+{
     for (int rank = R_8; rank >= R_1; rank--)
     {
         for (int file = F_A; file <= F_H; file++)
         // If it is, for that piece checkIsValidMove() for every coordinate of the map
         // Check each coordinate, if it = the black kings coordinates return true
         {
-            if (this->getChessPiece(rank, file)->getColour() == oppositeTeam && this->getChessPiece(rank, file)->isValidMove(rank, file, kingToCheckRank, kingToCheckFile, this))
+            if (this->getChessPiece(rank, file)->getColour() == oppositeTeam && this->getChessPiece(rank, file)->isValidMove(rank, file, rankToCheck, fileToCheck, this))
                 return true;
         }
     }
-
-    // Else return false
-
     return false;
 }
+
 void ChessBoard::clearBoard()
 {
     for (int rank = R_8; rank >= R_1; rank--)
@@ -244,9 +297,19 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     this->board[fromRank][fromFile] = new ChessPiece('.', "Free");
 
     if (isWhiteTurn && isInCheck())
-        std::cout << "White is in check" << std::endl;
+    {
+        if (isCheckmate())
+            std::cout << "White is in checkmate" << std::endl;
+        else
+            std::cout << "White is in check" << std::endl;
+    }
     else if (!isWhiteTurn && isInCheck())
-        std::cout << "Black is in check" << std::endl;
+    {
+        if (isCheckmate())
+            std::cout << "Black is in checkmate" << std::endl;
+        else
+            std::cout << "Black is in check" << std::endl;
+    }
 
     return true;
 }

@@ -17,6 +17,7 @@ int main()
 	// TODO: Only let the player move the King if player is in check
 	// TODO: Check if it is checkMate
 	// TODO: Check for stalemate
+	// TODO: Track the current position of each piece in its object, then no need to pass it around everywhere
 
 	cout << "========================\n";
 	cout << "Testing the Chess Engine\n";

@@ -10,9 +10,18 @@ ChessPiece::~ChessPiece() {}
 
 // ** GETTERS **
 // Iterate through every possible move and see if it is valid
-bool ChessPiece::canTakePiece(int rank, int file, int rankToCheck, int fileToCheck, ChessBoard *cb)
+bool ChessPiece::isPieceInCheck(int rankToCheck, int fileToCheck, char oppositeTeam, ChessBoard *cb)
 {
-
+    for (int rank = R_8; rank >= R_1; rank--)
+    {
+        for (int file = F_A; file <= F_H; file++)
+        // If it is, for that piece checkIsValidMove() for every coordinate of the map
+        // Check each coordinate, if it = the black kings coordinates return true
+        {
+            if (this->getColour() == oppositeTeam && this->isValidMove(rank, file, rankToCheck, fileToCheck, cb))
+                return true;
+        }
+    }
     return false;
 }
 

@@ -16,6 +16,7 @@ private:
     void removePiece();
     void setBoard();
     void clearBoard();
+    void getKingCoordinates(int &kingRank, int &kingFile, char colour);
 
 public:
     ChessBoard();
@@ -24,6 +25,8 @@ public:
     void printBoard();
     void resetBoard();
     bool isInCheck();
+    bool isCheckmate();
+    bool isPieceInCheck(int rankToCheck, int fileToCheck, char oppositeTeam);
     ChessPiece *getChessPiece(int rank, int file);
 };
 
