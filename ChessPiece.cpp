@@ -8,9 +8,20 @@ ChessPiece::ChessPiece(char colour, std::string name) : colour(colour), name(nam
 ChessPiece::~ChessPiece() {}
 
 // ** GETTERS **
+bool ChessPiece::isPositionFree()
+{
+    if (this->getName() == "Free")
+        return true;
+    else
+        return false;
+}
+
 char ChessPiece::getColour() { return this->colour; }
+
 std::string ChessPiece::getName() { return this->name; }
+
 bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
+
 bool ChessPiece::isValidMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)
 {
     // Create a pointer to the piece(or empty spot) on the board
@@ -32,10 +43,10 @@ bool ChessPiece::isPathClear(int fromRank, int fromFile, int toRank, int toFile,
         return this->freeSquaresDiagonal(fromRank, fromFile, toRank, toFile, pathDetails, cb);
 
     if (pathDetails[0] == "Horizontal")
-        return this->freeSquaresHorizontal(fromRank, fromFile, toRank, toFile, pathDetails, cb);
+        return this->freeSquaresHorizontal(fromRank, fromFile, toRank, toFile, pathDetails[1], cb);
 
     if (pathDetails[0] == "Vertical")
-        return this->freeSquaresVertical(fromRank, fromFile, toRank, toFile, pathDetails, cb);
+        return this->freeSquaresVertical(fromRank, fromFile, toRank, toFile, pathDetails[2], cb);
 
     return false;
 }
@@ -57,9 +68,9 @@ std::vector<std::string> ChessPiece::getMoveDirection(int fromRank, int fromFile
 
     // Check if the move is left or right across the board
     if (fromFile - toFile < 0)
-        fileDirection = "Left";
-    else if (fromFile - toFile > 0)
         fileDirection = "Right";
+    else if (fromFile - toFile > 0)
+        fileDirection = "Left";
     else
         fileDirection = "No Change";
 
@@ -78,78 +89,108 @@ std::vector<std::string> ChessPiece::getMoveDirection(int fromRank, int fromFile
     return pathDetails;
 }
 
-int ChessPiece::freeSquaresHorizontal(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb)
+bool ChessPiece::freeSquaresHorizontal(int fromRank, int fromFile, int toRank, int toFile, std::string fileDirection, ChessBoard *cb)
 {
-    int count = 0;
+    // If the file direction is up, we want to count the squares above the target location
+    if (fileDirection == "Right")
+    {
+        for (int filePath = fromFile + 1; filePath < toFile; filePath++)
+        {
+            if (!cb->getChessPiece(fromRank, filePath)->isPositionFree())
+                return false;
+        }
+    }
+    else
+    {
+        // While there empty squares, count the max free path to travel
+        for (int filePath = fromFile - 1; filePath > toFile; filePath--)
+        {
+            if (!cb->getChessPiece(fromRank, filePath)->isPositionFree())
+                return false;
+        }
+    }
+    return true;
+}
+
+bool ChessPiece::freeSquaresVertical(int fromRank, int fromFile, int toRank, int toFile, std::string rankDirection, ChessBoard *cb)
+{
+    // If the file direction is up, we want to count the squares above the target location
+    if (rankDirection == "Up")
+    {
+        for (int rankPath = fromRank + 1; rankPath < toRank; rankPath++)
+        {
+            if (!cb->getChessPiece(rankPath, fromFile)->isPositionFree())
+                return false;
+        }
+    }
+    else
+    {
+        // While there empty squares, count the max free path to travel
+        for (int rankPath = fromRank - 1; rankPath > toRank; rankPath--)
+        {
+            if (!cb->getChessPiece(rankPath, fromFile)->isPositionFree())
+                return false;
+        }
+    }
+    return true;
+}
+
+// TODO - Fix this first
+bool ChessPiece::freeSquaresDiagonal(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb)
+{
     std::string fileDirection = pathDetails[1];
+    std::string rankDirection = pathDetails[2];
+
+    // Check if diagonal is even
+    if ((abs(fromRank - toRank) != abs(fromFile - toFile)))
+        return false;
 
     // If the file direction is up, we want to count the squares above the target location
-    if (fileDirection == "Up")
+    if (rankDirection == "Up" && fileDirection == "Right")
     {
-        // While there empty squares, count the max free path to travel
-        while (cb->getChessPiece(fromRank, fromFile + 1)->getName() == "Free" && fromFile < toFile)
+        int rankPath = fromRank + 1;
+        for (int filePath = fromFile + 1; filePath < toFile && rankPath < toRank; filePath++)
         {
-            fromFile++;
-            count++;
-        }
-    }
-    else
-    {
-        // While there empty squares, count the max free path to travel
-        while (cb->getChessPiece(fromRank, fromFile - 1)->getName() == "Free" && fromFile > toFile)
-        {
-            fromFile--;
-            count--;
-        }
-    }
-    return count;
-}
+            if (!cb->getChessPiece(rankPath, filePath)->isPositionFree())
+                return false;
 
-int ChessPiece::freeSquaresVertical(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb)
-{
-    int count = 0;
-    if (colour == 'W')
-    {
-        // While there empty squares, count the max free path to travel
-        while (cb->getChessPiece(fromRank + 1, fromFile)->getName() == "Free" && fromRank < toRank)
-        {
-            fromRank++;
-            count++;
+            rankPath++;
         }
     }
-    else
+    else if (rankDirection == "Down" && fileDirection == "Left")
     {
-        // While there empty squares, count the max free path to travel
-        while (cb->getChessPiece(fromRank - 1, fromFile)->getName() == "Free" && fromRank > toRank)
+        int rankPath = fromRank - 1;
+        for (int filePath = fromFile - 1; filePath > toFile && rankPath > toRank; filePath--)
         {
-            fromRank--;
-            count--;
-        }
-    }
-    return count;
-}
 
-int ChessPiece::freeSquaresDiagonal(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb)
-{
-    int count = 0;
-    if (colour == 'W')
-    {
-        // While there empty squares, count the max free path to travel
-        while (cb->getChessPiece(fromRank + 1, fromFile + 1)->getName() == "Free" && fromRank < toRank)
-        {
-            fromRank++;
-            fromFile++;
-            count++;
+            if (!cb->getChessPiece(rankPath, filePath)->isPositionFree())
+                return false;
+
+            rankPath--;
         }
     }
-    else
+    else if (rankDirection == "Down" && fileDirection == "Right")
     {
-        // While there empty squares, count the max free path to travel
-        while (cb->getChessPiece(fromRank - 1, fromFile - 1)->getName() == "Free" && fromRank > toRank)
+        int rankPath = fromRank - 1;
+        for (int filePath = fromFile + 1; filePath < toFile && rankPath > toRank; filePath++)
         {
-            fromRank--;
-            count--;
+            if (!cb->getChessPiece(rankPath, filePath)->isPositionFree())
+                return false;
+
+            rankPath--;
         }
     }
-    return count;
+    else if (rankDirection == "Up" && fileDirection == "Left")
+    {
+        int rankPath = fromRank + 1;
+        for (int filePath = fromFile - 1; filePath > toFile && rankPath < toRank; filePath--)
+        {
+            if (!cb->getChessPiece(rankPath, filePath)->isPositionFree())
+                return false;
+
+            rankPath++;
+        }
+    }
+
+    return true;
 }

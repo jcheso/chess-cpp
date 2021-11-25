@@ -31,11 +31,12 @@ public:
     // Check the move path is clear
     bool isPathClear(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
     // Get the number of empty squares in each direction
-    int freeSquaresHorizontal(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb);
-    int freeSquaresVertical(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb);
-    int freeSquaresDiagonal(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb);
+    bool freeSquaresHorizontal(int fromRank, int fromFile, int toRank, int toFile, std::string fileDirection, ChessBoard *cb);
+    bool freeSquaresVertical(int fromRank, int fromFile, int toRank, int toFile, std::string rankDirection, ChessBoard *cb);
+    bool freeSquaresDiagonal(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb);
     // Check if the move is valid (i.e. empty spot and not the same colour) and call isLegalMove()
     bool isValidMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
+    bool isPositionFree();
 };
 
 #endif

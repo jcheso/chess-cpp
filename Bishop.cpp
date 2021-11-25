@@ -7,13 +7,9 @@ Bishop::~Bishop() {}
 bool Bishop::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)
 {
     ChessPiece *thisPiece = cb->getChessPiece(fromRank, fromFile);
-    ChessPiece *targetPosition = cb->getChessPiece(toRank, toFile);
-
     // Check the move is diagonal and that the path is clear
     if (thisPiece->isPathClear(fromRank, fromFile, toRank, toFile, cb) && fromFile != toFile)
-    {
         return true;
-    }
-
-    return false;
+    else
+        return false;
 }

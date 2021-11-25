@@ -11,7 +11,16 @@
 #include <iostream>
 #include <iomanip>
 bool ChessBoard::isStalemate() { return false; }
-void ChessBoard::clearBoard() {}
+void ChessBoard::clearBoard()
+{
+    for (int rank = R_8; rank >= R_1; rank--)
+    {
+        for (int file = F_A; file <= F_H; file++)
+        {
+            delete this->getChessPiece(rank, file);
+        }
+    }
+}
 void ChessBoard::setBoard()
 {
     // Fill the board with Black Pieces
@@ -21,8 +30,8 @@ void ChessBoard::setBoard()
     board[R_8][F_A] = new Rook('B', "Rook");
     board[R_8][F_B] = new Knight('B', "Knight");
     board[R_8][F_C] = new Bishop('B', "Bishop");
-    board[R_8][F_D] = new King('B', "King");
-    board[R_8][F_E] = new Queen('B', "Queen");
+    board[R_8][F_D] = new Queen('B', "Queen");
+    board[R_8][F_E] = new King('B', "King");
     board[R_8][F_F] = new Bishop('B', "Bishop");
     board[R_8][F_G] = new Knight('B', "Knight");
     board[R_8][F_H] = new Rook('B', "Rook");
@@ -34,8 +43,8 @@ void ChessBoard::setBoard()
     board[R_1][F_A] = new Rook('W', "Rook");
     board[R_1][F_B] = new Knight('W', "Knight");
     board[R_1][F_C] = new Bishop('W', "Bishop");
-    board[R_1][F_D] = new King('W', "King");
-    board[R_1][F_E] = new Queen('W', "Queen");
+    board[R_1][F_D] = new Queen('W', "Queen");
+    board[R_1][F_E] = new King('W', "King");
     board[R_1][F_F] = new Bishop('W', "Bishop");
     board[R_1][F_G] = new Knight('W', "Knight");
     board[R_1][F_H] = new Rook('W', "Rook");
@@ -48,26 +57,32 @@ void ChessBoard::setBoard()
     }
     std::cout << "A new chess game is started!" << std::endl;
 }
+
 void ChessBoard::resetGame()
 {
-    // clearBoard()
+    clearBoard();
     setBoard();
 }
+
 void ChessBoard::printBoard()
 {
-    if (this->isWhiteTurn)
-    {
-        std::cout << std::setw(20) << "                            **White's turn to move!**" << std::endl;
-    }
-    else
-    {
-        std::cout << std::setw(20) << "                            **Black's turn to move!**" << std::endl;
-    }
     std::cout
         << "\n"
         << "|----------------------------------------------------------------------------------|" << std::endl;
+    if (this->isWhiteTurn)
+    {
+        std::cout << std::setw(20) << "|                            **White's turn to move!**                             |" << std::endl;
+    }
+    else
+    {
+        std::cout << std::setw(20) << "|                            **Black's turn to move!**                             |" << std::endl;
+    }
+    std::cout
+        << "|----------------------------------------------------------------------------------|" << std::endl;
     std::cout << std::setw(2) << "|     ";
     std::cout << "|   A  |  |  B   |  |  C   |  |  D   |  |  E   |  |  F   |  |  G   |  |  H   |" << std::endl;
+    std::cout
+        << "|----------------------------------------------------------------------------------|" << std::endl;
     // std::cout << std::setw(2) << " | "
     for (int rank = R_8; rank >= R_1; rank--)
     {
@@ -92,11 +107,13 @@ void ChessBoard::printBoard()
     }
 }
 ChessBoard::ChessBoard() { setBoard(); }
+
 ChessBoard::~ChessBoard()
 {
     // Call clearBoard()
 }
 ChessPiece *ChessBoard::getChessPiece(int rank, int file) { return this->board[rank][file]; }
+
 bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 {
     // TODO - Move these shared functions to the helper class
@@ -115,9 +132,9 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 
     // Get the piece at that position
     ChessPiece *pieceToMove = this->getChessPiece(fromRank, fromFile);
-
+    ChessPiece *targetPosition = this->getChessPiece(toRank, toFile);
     // Check if there is a piece at the position
-    if (pieceToMove->getName() == "Free")
+    if (pieceToMove->isPositionFree())
     {
         std::cout << "There is no piece at position " << moveFrom << "!" << std::endl;
         return false;
@@ -151,13 +168,22 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     if (isWhiteTurn)
     {
         std::cout << "White's " << this->getChessPiece(fromRank, fromFile)->getName() << " moves from "
-                  << moveFrom << " to " << moveTo << std::endl;
+                  << moveFrom << " to " << moveTo;
+        if (!targetPosition->isPositionFree())
+            std::cout << " taking Black's " << targetPosition->getName() << endl;
+        else
+            std::cout << "\n";
         isWhiteTurn = false;
     }
     else
     {
         std::cout << "Black's " << this->getChessPiece(fromRank, fromFile)->getName() << " moves from "
-                  << moveFrom << " to " << moveTo << std::endl;
+                  << moveFrom << " to " << moveTo;
+
+        if (!targetPosition->isPositionFree())
+            std::cout << " taking White's " << targetPosition->getName() << endl;
+        else
+            std::cout << "\n";
         isWhiteTurn = true;
     }
 

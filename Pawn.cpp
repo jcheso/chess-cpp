@@ -13,7 +13,7 @@ bool Pawn::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, Chess
 
     // If the target position is empty ensure the move is vertical
     // Need to check separate magnitudes for the colours to make sure it is only moving forward
-    if (targetPosition->getName() == "Free" && fromFile == toFile)
+    if (targetPosition->isPositionFree() && fromFile == toFile)
     {
         // If it is the first move, check the move is 2 squares max and square it passes through is free
         if (thisPiece->isFirstMove && thisPiece->isPathClear(fromRank, fromFile, toRank, toFile, cb))
@@ -44,7 +44,7 @@ bool Pawn::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, Chess
     }
 
     // If the target position has the other player
-    else if (targetPosition->getName() != "Free")
+    else if (!targetPosition->isPositionFree())
     {
         // Check the move is diagonal by 1 file
         if ((toFile == fromFile + 1) || (toFile == fromFile - 1))
