@@ -4,8 +4,6 @@
 #include <iostream>
 
 Pawn::Pawn(char colour, std::string name) : ChessPiece(colour, name) {}
-Pawn::~Pawn() {}
-
 bool Pawn::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)
 {
     ChessPiece *thisPiece = cb->getChessPiece(fromRank, fromFile);

@@ -7,8 +7,7 @@ class Rook : public ChessPiece
 {
 public:
     Rook(char colour, std::string name);
-    ~Rook();
-    virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
+    bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) override;
 
 private:
 };
