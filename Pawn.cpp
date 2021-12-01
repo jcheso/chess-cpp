@@ -1,5 +1,5 @@
-#include "Pawn.hpp"
-#include "ChessPiece.hpp"
+#include "Pawn.h"
+#include "ChessPiece.h"
 #include <string>
 #include <iostream>
 

@@ -1,12 +1,12 @@
-#include "ChessBoard.hpp"
-#include "ChessPiece.hpp"
-#include "Pawn.hpp"
-#include "Bishop.hpp"
-#include "Rook.hpp"
-#include "Knight.hpp"
-#include "Queen.hpp"
-#include "King.hpp"
-#include "Helper.hpp"
+#include "ChessBoard.h"
+#include "ChessPiece.h"
+#include "Pawn.h"
+#include "Bishop.h"
+#include "Rook.h"
+#include "Knight.h"
+#include "Queen.h"
+#include "King.h"
+#include "Helper.h"
 #include <string>
 #include <iostream>
 #include <iomanip>
@@ -17,24 +17,16 @@ ChessBoard::~ChessBoard() { clearBoard(); }
 bool ChessBoard::isStalemate()
 {
     char thisTeam;
-    char oppositeTeam;
-    int kingRank;
-    int kingFile;
+    int rankTo, fileTo;
 
     if (this->isWhiteTurn)
     {
         thisTeam = 'W';
-        oppositeTeam = 'B';
     }
     else
     {
         thisTeam = 'B';
-        oppositeTeam = 'W';
     }
-    int rankTo, fileTo;
-    getKingCoordinates(kingRank, kingFile, thisTeam);
-
-    ChessPiece *king = this->getChessPiece(kingRank, kingFile);
 
     // Iterate through every piece of thisTeam, check if a valid move exists
     // If a valid move exists, check if the king is in check after the move

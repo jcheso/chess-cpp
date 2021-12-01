@@ -1,7 +1,7 @@
-#ifndef BISHOP_HPP
-#define BISHOP_HPP
-#include "ChessPiece.hpp"
-#include "Helper.hpp"
+#ifndef BISHOP_H
+#define BISHOP_H
+#include "ChessPiece.h"
+#include "Helper.h"
 #include <string>
 class Bishop : public ChessPiece
 {

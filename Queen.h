@@ -1,6 +1,6 @@
-#ifndef QUEEN_HPP
-#define QUEEN_HPP
-#include "ChessPiece.hpp"
+#ifndef QUEEN_H
+#define QUEEN_H
+#include "ChessPiece.h"
 #include <string>
 
 class Queen : public ChessPiece

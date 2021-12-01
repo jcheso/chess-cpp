@@ -1,7 +1,7 @@
-#ifndef CHESS_PIECE_HPP
-#define CHESS_PIECE_HPP
+#ifndef CHESS_PIECE_H
+#define CHESS_PIECE_H
 class ChessBoard;
-#include "ChessBoard.hpp"
+#include "ChessBoard.h"
 #include <string>
 #include <vector>
 

@@ -1,37 +1,37 @@
 all: chess
 
-chess: chessmain.o helper.o chesspiece.o chessboard.o bishop.o king.o knight.o pawn.o queen.o rook.o
-	g++ -g chessmain.o helper.o chesspiece.o chessboard.o bishop.o king.o knight.o pawn.o queen.o rook.o -o chess
+chess: ChessMain.o Helper.o ChessPiece.o ChessBoard.o Bishop.o King.o Knight.o Pawn.o Queen.o Rook.o
+	g++ -g ChessMain.o Helper.o ChessPiece.o ChessBoard.o Bishop.o King.o Knight.o Pawn.o Queen.o Rook.o -o chess
 
-chessmain.o: chessmain.cpp  helper.hpp
-	g++ -Wall -g -c chessmain.cpp
+ChessMain.o: ChessMain.cpp
+	g++ -Wall -g -c ChessMain.cpp
 
-helper.o: helper.cpp helper.hpp
-	g++ -Wall -g -c helper.cpp helper.hpp
+Helper.o: Helper.cpp Helper.h
+	g++ -Wall -g -c Helper.cpp Helper.h
 	
-chesspiece.o: chesspiece.cpp chesspiece.hpp
-	g++ -Wall -g -c chesspiece.cpp chesspiece.hpp
+ChessPiece.o: ChessPiece.cpp ChessPiece.h
+	g++ -Wall -g -c ChessPiece.cpp ChessPiece.h
 
-chessboard.o: chessboard.cpp chessboard.hpp
-	g++ -Wall -g -c chessboard.cpp chessboard.hpp
+ChessBoard.o: ChessBoard.cpp ChessBoard.h
+	g++ -Wall -g -c ChessBoard.cpp ChessBoard.h
 
-bishop.o: bishop.cpp bishop.hpp
-	g++ -Wall -g -c bishop.cpp bishop.hpp
+Bishop.o: Bishop.cpp Bishop.h
+	g++ -Wall -g -c Bishop.cpp Bishop.h
 	
-king.o: king.cpp king.hpp
-	g++ -Wall -g -c king.cpp king.hpp
+King.o: King.cpp King.h
+	g++ -Wall -g -c King.cpp King.h
 
-knight.o: knight.cpp knight.hpp
-	g++ -Wall -g -c knight.cpp knight.hpp
+Knight.o: Knight.cpp Knight.h
+	g++ -Wall -g -c Knight.cpp Knight.h
 
-pawn.o: pawn.cpp pawn.hpp
-	g++ -Wall -g -c pawn.cpp pawn.hpp
+Pawn.o: Pawn.cpp Pawn.h
+	g++ -Wall -g -c Pawn.cpp Pawn.h
 
-queen.o: queen.cpp queen.hpp
-	g++ -Wall -g -c queen.cpp queen.hpp
+Queen.o: Queen.cpp Queen.h
+	g++ -Wall -g -c Queen.cpp Queen.h
 
-rook.o: rook.cpp rook.hpp
-	g++ -Wall -g -c rook.cpp rook.hpp
+Rook.o: Rook.cpp Rook.h
+	g++ -Wall -g -c Rook.cpp Rook.h
 
 clean:
-	rm -f *.o *.hpp.gch chess
+	rm -f *.o *.h.gch chess

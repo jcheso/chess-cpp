@@ -1,5 +1,5 @@
-#include "Knight.hpp"
-#include "ChessPiece.hpp"
+#include "Knight.h"
+#include "ChessPiece.h"
 #include <string>
 
 Knight::Knight(char colour, std::string name) : ChessPiece(colour, name) {}

@@ -1,27 +1,37 @@
-#include "ChessPiece.hpp"
-#include "ChessBoard.hpp"
-#include "Helper.hpp"
-#include "Bishop.hpp"
-#include "King.hpp"
-#include "Knight.hpp"
-#include "Pawn.hpp"
-#include "Queen.hpp"
-#include "Rook.hpp"
+#include "ChessPiece.h"
+// #include "ChessBoard.h"
+// #include "Helper.h"
+// #include "Bishop.h"
+// #include "King.h"
+// #include "Knight.h"
+// #include "Pawn.h"
+// #include "Queen.h"
+// #include "Rook.h"
 #include <iostream>
 using namespace std;
 
 int main()
 {
-
+	// !! REFACTORING
+	// TODO: Tidy up Headers
+	// TODO: DRY - Don't Repeat Yourself
+	// TODO: Reduce Method Length to 10 lines where possible
+	// TODO: Reduce paramter list to <5
+	// TODO: Turn data clumps into classes
+	// TODO: Check for alternative classes that do the same thing
+	// TODO: Check for middle man classes
+	// TODO:
 	// TODO: Change the string checks to enum values instead
-	// TODO: Only let the player move the King if player is in check
-	// TODO: Check if it is checkMate
-	// TODO: Check for stalemate
-	// TODO: Track the current position of each piece in its object, then no need to pass it around everywhere
-	// TODO: Check bishop can't move diagonal and up
 	// TODO: Change virtual to override in child classes
-	// TODO: Make destructors virtual
+	// TODO: Track the current position of each piece in its object, then no need to pass it around everywhere
 	// TODO: Change Pawn isFirstMove to just check if it is in the right rank for the colour
+	// !! OPTIMISATION
+	// TODO: Remove virtual from inherited classes and add override keyword
+	// TODO: Make destructors virtual
+	// TODO: Use nullptr instead of empty objects
+	// TODO: Delete all new copies
+	// !! BUG FIXES
+	// TODO: Create thorough unit tests for all pieces
 
 	cout << "========================\n";
 	cout << "Testing the Chess Engine\n";
@@ -93,72 +103,51 @@ int main()
 	cb.submitMove("D3", "G6");
 	cout << '\n';
 
-	cb.printBoard();
+	// cb.printBoard();
 
 	// cout << "========================\n";
 	// cout << "Testing for a Stalemate\n";
 	// cout << "========================\n\n";
 
-	// ChessBoard cb;
+	// cb.resetBoard();
 
-	// // **PRESET TESTS**
-	// cout << '\n';
-	// cb.printBoard();
 	// cb.submitMove("C2", "C4");
 
 	// cb.submitMove("H7", "H5");
-	// // cb.printBoard();
 
 	// cb.submitMove("H2", "H4");
-	// // cb.printBoard();
 
 	// cb.submitMove("A7", "A5");
-	// // cb.printBoard();
 
 	// cb.submitMove("D1", "A4");
-	// // cb.printBoard();
 
 	// cb.submitMove("A8", "A6");
-	// // cb.printBoard();
 
 	// cb.submitMove("A4", "A5");
-	// // cb.printBoard();
 
 	// cb.submitMove("A6", "H6");
-	// // cb.printBoard();
 
 	// cb.submitMove("A5", "C7");
-	// // cb.printBoard();
 
 	// cb.submitMove("F7", "F6");
-	// // cb.printBoard();
 
 	// cb.submitMove("C7", "D7");
-	// // cb.printBoard();
 
 	// cb.submitMove("E8", "F7");
-	// // cb.printBoard();
 
 	// cb.submitMove("D7", "B7");
-	// // cb.printBoard();
 
 	// cb.submitMove("D8", "D3");
-	// // cb.printBoard();
 
 	// cb.submitMove("B7", "B8");
-	// // cb.printBoard();
 
 	// cb.submitMove("D3", "H7");
-	// // cb.printBoard();
 
 	// cb.submitMove("B8", "C8");
-	// // cb.printBoard();
 
 	// cb.submitMove("F7", "G6");
-	// // cb.printBoard();
 
 	// cb.submitMove("C8", "E6");
-	// cb.printBoard();
 
 	// // ** PAWN UNIT TESTS **
 	// cout << "Test White pawn can move forward by 2" << endl;

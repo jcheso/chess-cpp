@@ -1,13 +1,12 @@
-#ifndef ROOK_HPP
-#define ROOK_HPP
-#include "ChessPiece.hpp"
+#ifndef PAWN_H
+#define PAWN_H
+#include "ChessPiece.h"
 #include <string>
-
-class Rook : public ChessPiece
+class Pawn : public ChessPiece
 {
 public:
-    Rook(char colour, std::string name);
-    ~Rook();
+    Pawn(char colour, std::string name);
+    ~Pawn();
     virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
 
 private:

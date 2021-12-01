@@ -2,3 +2,6 @@
 *.hpp.gch
 *.exe
 .vscode
+scp.txt
+*.h.gch
+chess

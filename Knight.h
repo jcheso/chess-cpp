@@ -1,6 +1,6 @@
-#ifndef KNIGHT_HPP
-#define KNIGHT_HPP
-#include "ChessPiece.hpp"
+#ifndef KNIGHT_H
+#define KNIGHT_H
+#include "ChessPiece.h"
 #include <string>
 class Knight : public ChessPiece
 {

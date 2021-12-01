@@ -1,5 +1,5 @@
-#include "Rook.hpp"
-#include "ChessPiece.hpp"
+#include "Rook.h"
+#include "ChessPiece.h"
 #include <string>
 
 Rook::Rook(char colour, std::string name) : ChessPiece(colour, name) {}

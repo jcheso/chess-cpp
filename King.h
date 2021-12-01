@@ -1,6 +1,6 @@
-#ifndef KING_HPP
-#define KING_HPP
-#include "ChessPiece.hpp"
+#ifndef KING_H
+#define KING_H
+#include "ChessPiece.h"
 using namespace std;
 
 class King : public ChessPiece

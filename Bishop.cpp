@@ -1,5 +1,5 @@
-#include "Bishop.hpp"
-#include "ChessPiece.hpp"
+#include "Bishop.h"
+#include "ChessPiece.h"
 #include <string>
 
 Bishop::Bishop(char colour, std::string name) : ChessPiece(colour, name) {}

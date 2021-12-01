@@ -1,5 +1,5 @@
-#include "ChessPiece.hpp"
-#include "Helper.hpp"
+#include "ChessPiece.h"
+#include "Helper.h"
 #include <iostream>
 #include <string>
 #include <vector>
