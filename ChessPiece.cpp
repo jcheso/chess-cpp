@@ -21,6 +21,19 @@ char ChessPiece::getColour() { return this->colour; }
 
 std::string ChessPiece::getName() { return this->name; }
 
+bool ChessPiece::hasValidMove(int rankFrom, int fileFrom, int &rankTo, int &fileTo, ChessBoard *cb)
+{
+    for (rankTo = R_8; rankTo >= R_1; rankTo--)
+    {
+        for (fileTo = F_A; fileTo <= F_H; fileTo++)
+        {
+            if (this->isValidMove(rankFrom, fileFrom, rankTo, fileTo, cb))
+                return true;
+        }
+    }
+    return false;
+}
+
 bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
 
 bool ChessPiece::isValidMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)

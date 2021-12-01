@@ -38,6 +38,7 @@ public:
     // Check if the move is valid (i.e. empty spot and not the same colour) and call isLegalMove()
     bool isValidMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
     bool isPositionFree();
+    bool hasValidMove(int rankFrom, int fileFrom, int &rankTo, int &fileTo, ChessBoard *cb);
     bool isKingInCheck(int rankToCheck, int fileToCheck, char oppositeTeam, ChessBoard *cb);
 };
 
