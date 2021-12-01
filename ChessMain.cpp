@@ -11,12 +11,10 @@ int main()
 	// TODO: Turn data clumps into classes
 	// TODO: Check for alternative classes that do the same thing
 	// TODO: Check for middle man classes
-	// TODO:
 	// TODO: Change the string checks to enum values instead
 	// TODO: Change virtual to override in child classes
 	// TODO: Track the current position of each piece in its object, then no need to pass it around everywhere
 	// !! OPTIMISATION
-	// TODO: Use nullptr instead of empty objects
 	// TODO: Delete all new copies
 	// !! BUG FIXES
 	// TODO: Create thorough unit tests for all pieces

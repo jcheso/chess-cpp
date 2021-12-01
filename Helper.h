@@ -25,4 +25,15 @@ enum RankEnum
     RANK_8,
 };
 
+enum PieceColours
+{
+    BLACK,
+    WHITE,
+    NO_COLOUR,
+};
+
+// enum PieceNames{
+
+// }
+
 #endif

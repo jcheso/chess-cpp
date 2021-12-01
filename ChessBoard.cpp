@@ -19,9 +19,9 @@ bool ChessBoard::isStalemate()
     int rankTo, fileTo;
 
     if (isWhiteTurn)
-        thisTeam = 'W';
+        thisTeam = WHITE;
     else
-        thisTeam = 'B';
+        thisTeam = BLACK;
 
     // Test if the a piece can move somewhere where the King is not in check
     for (int rank = RANK_8; rank >= RANK_1; rank--)
@@ -34,7 +34,7 @@ bool ChessBoard::isStalemate()
                 ChessPiece *originalPiece = board[rankTo][fileTo];
                 ChessPiece *pieceToMove = board[rank][file];
                 board[rankTo][fileTo] = pieceToMove;
-                board[rank][file] = new ChessPiece('.', "Free");
+                board[rank][file] = new ChessPiece(NO_COLOUR, "Free");
 
                 // If moving the piece results in a check
                 if (isCheck())
@@ -68,13 +68,13 @@ bool ChessBoard::isCheckmate()
 
     if (isWhiteTurn)
     {
-        thisTeam = 'W';
-        oppositeTeam = 'B';
+        thisTeam = WHITE;
+        oppositeTeam = BLACK;
     }
     else
     {
-        thisTeam = 'B';
-        oppositeTeam = 'W';
+        thisTeam = BLACK;
+        oppositeTeam = WHITE;
     }
 
     getKingCoordinates(kingRank, kingFile, thisTeam);
@@ -168,13 +168,13 @@ bool ChessBoard::isCheck()
     // Check if it is white or black turn and set targets accordingly
     if (isWhiteTurn)
     {
-        colourToCheck = 'W';
-        oppositeTeam = 'B';
+        colourToCheck = WHITE;
+        oppositeTeam = BLACK;
     }
     else
     {
-        colourToCheck = 'B';
-        oppositeTeam = 'W';
+        colourToCheck = BLACK;
+        oppositeTeam = WHITE;
     }
 
     // Get the coordinates of the King to find out if it is in check
@@ -218,35 +218,35 @@ void ChessBoard::setBoard()
 {
     // Fill the board with Black Pieces
     for (int file = FILE_A; file <= FILE_H; file++)
-        board[RANK_7][file] = new Pawn('B', "Pawn");
+        board[RANK_7][file] = new Pawn(BLACK, "Pawn");
 
-    board[RANK_8][FILE_A] = new Rook('B', "Rook");
-    board[RANK_8][FILE_B] = new Knight('B', "Knight");
-    board[RANK_8][FILE_C] = new Bishop('B', "Bishop");
-    board[RANK_8][FILE_D] = new Queen('B', "Queen");
-    board[RANK_8][FILE_E] = new King('B', "King");
-    board[RANK_8][FILE_F] = new Bishop('B', "Bishop");
-    board[RANK_8][FILE_G] = new Knight('B', "Knight");
-    board[RANK_8][FILE_H] = new Rook('B', "Rook");
+    board[RANK_8][FILE_A] = new Rook(BLACK, "Rook");
+    board[RANK_8][FILE_B] = new Knight(BLACK, "Knight");
+    board[RANK_8][FILE_C] = new Bishop(BLACK, "Bishop");
+    board[RANK_8][FILE_D] = new Queen(BLACK, "Queen");
+    board[RANK_8][FILE_E] = new King(BLACK, "King");
+    board[RANK_8][FILE_F] = new Bishop(BLACK, "Bishop");
+    board[RANK_8][FILE_G] = new Knight(BLACK, "Knight");
+    board[RANK_8][FILE_H] = new Rook(BLACK, "Rook");
 
     // Fill the board with White Pieces
     for (int file = FILE_A; file <= FILE_H; file++)
-        board[RANK_2][file] = new Pawn('W', "Pawn");
+        board[RANK_2][file] = new Pawn(WHITE, "Pawn");
 
-    board[RANK_1][FILE_A] = new Rook('W', "Rook");
-    board[RANK_1][FILE_B] = new Knight('W', "Knight");
-    board[RANK_1][FILE_C] = new Bishop('W', "Bishop");
-    board[RANK_1][FILE_D] = new Queen('W', "Queen");
-    board[RANK_1][FILE_E] = new King('W', "King");
-    board[RANK_1][FILE_F] = new Bishop('W', "Bishop");
-    board[RANK_1][FILE_G] = new Knight('W', "Knight");
-    board[RANK_1][FILE_H] = new Rook('W', "Rook");
+    board[RANK_1][FILE_A] = new Rook(WHITE, "Rook");
+    board[RANK_1][FILE_B] = new Knight(WHITE, "Knight");
+    board[RANK_1][FILE_C] = new Bishop(WHITE, "Bishop");
+    board[RANK_1][FILE_D] = new Queen(WHITE, "Queen");
+    board[RANK_1][FILE_E] = new King(WHITE, "King");
+    board[RANK_1][FILE_F] = new Bishop(WHITE, "Bishop");
+    board[RANK_1][FILE_G] = new Knight(WHITE, "Knight");
+    board[RANK_1][FILE_H] = new Rook(WHITE, "Rook");
 
-    // Fill the remainder of the board with nullptr
+    // Fill the remainder of the board with empty pieces
     for (int rank = RANK_3; rank <= RANK_6; rank++)
     {
         for (int file = FILE_A; file <= FILE_H; file++)
-            board[rank][file] = new ChessPiece('.', "Free");
+            board[rank][file] = new ChessPiece(NO_COLOUR, "Free");
     }
     std::cout << "A new chess game is started!" << std::endl;
     // Set white's turn
@@ -288,7 +288,14 @@ void ChessBoard::printBoard()
             if (getChessPiece(rank, file)->getName() != "Free")
             {
                 std::cout << std::setw(2) << " | ";
-                std::cout << getChessPiece(rank, file)->getColour() << "_" << getChessPiece(rank, file)->getName()[0] << getChessPiece(rank, file)->getName()[1];
+                if (getChessPiece(rank, file)->getColour() == BLACK)
+                {
+                    std::cout << "B_" << getChessPiece(rank, file)->getName()[0] << getChessPiece(rank, file)->getName()[1];
+                }
+                else
+                {
+                    std::cout << "W_" << getChessPiece(rank, file)->getName()[0] << getChessPiece(rank, file)->getName()[1];
+                }
                 std::cout << std::setw(2) << " | ";
             }
             else
@@ -334,12 +341,12 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     }
 
     // Check if the piece belongs to the player who's turn it is.
-    if (isWhiteTurn && pieceToMove->getColour() == 'B')
+    if (isWhiteTurn && pieceToMove->getColour() == BLACK)
     {
         std::cout << "It is not Black's turn to move!" << std::endl;
         return false;
     }
-    if (!isWhiteTurn && pieceToMove->getColour() == 'W')
+    if (!isWhiteTurn && pieceToMove->getColour() == WHITE)
     {
         std::cout << "It is not White's turn to move!" << std::endl;
         return false;
@@ -382,7 +389,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 
     // Make the move, set target to piece and original position to free
     board[toRank][toFile] = pieceToMove;
-    board[fromRank][fromFile] = new ChessPiece('.', "Free");
+    board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free");
 
     if (isWhiteTurn && isCheck())
     {

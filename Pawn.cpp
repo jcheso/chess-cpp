@@ -8,9 +8,9 @@ Pawn::Pawn(char colour, std::string name) : ChessPiece(colour, name) {}
 
 bool Pawn::isFirstMove(int fromRank)
 {
-    if (getColour() == 'W' && fromRank == RANK_2)
+    if (getColour() == WHITE && fromRank == RANK_2)
         return true;
-    else if (getColour() == 'B' && fromRank == RANK_7)
+    else if (getColour() == BLACK && fromRank == RANK_7)
         return true;
     return false;
 }
@@ -26,7 +26,7 @@ bool Pawn::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, Chess
         // If it is the first move, check the move is 2 squares max and square it passes through is free
         if (isFirstMove(fromRank) && isPathClear(fromRank, fromFile, toRank, toFile, cb))
         {
-            if (getColour() == 'W')
+            if (getColour() == WHITE)
             {
                 if (toRank == fromRank + 2)
                     return true;
@@ -39,7 +39,7 @@ bool Pawn::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, Chess
         }
 
         // If it was only a magnitude of one, it doesn't matter if first move or not - check the move is only 1 square in magnitude
-        if (getColour() == 'W')
+        if (getColour() == WHITE)
         {
             if ((toRank == fromRank + 1))
                 return true;
@@ -58,7 +58,7 @@ bool Pawn::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, Chess
         if ((toFile == fromFile + 1) || (toFile == fromFile - 1))
         {
             // Check the move is only 1 rank in up direction for white and down for black
-            if (getColour() == 'W')
+            if (getColour() == WHITE)
             {
                 if (toRank == fromRank + 1)
                     return true;
