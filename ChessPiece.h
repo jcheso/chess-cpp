@@ -9,7 +9,7 @@ class ChessBoard;
 class ChessPiece
 {
 private:
-    char colour;
+    int colour;
     std::string name;
 
 protected:
@@ -22,7 +22,7 @@ public:
 
     // ** GETTERS **
     bool canTakePiece(int rank, int file, int rankToCheck, int fileToCheck, ChessBoard *cb);
-    char getColour();
+    int getColour();
     std::string getName();
     std::vector<std::string> getMoveDirection(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
     bool isPositionFree();

@@ -17,7 +17,7 @@ bool ChessPiece::isPositionFree()
         return false;
 }
 
-char ChessPiece::getColour() { return this->colour; }
+int ChessPiece::getColour() { return this->colour; }
 
 std::string ChessPiece::getName() { return this->name; }
 
