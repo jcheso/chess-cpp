@@ -47,11 +47,11 @@ bool ChessPiece::isValidMove(int fromRank, int fromFile, int toRank, int toFile,
         return false;
 }
 
-bool ChessPiece::isPathClear(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)
+bool ChessPiece::isPathClear(int toRank, int toFile, ChessBoard *cb)
 {
     // Get the move type (horizontal, vertical or diagonal) and directionX & directionY
     std::vector<std::string> pathDetails;
-    pathDetails = getMoveDirection(fromRank, fromFile, toRank, toFile, cb);
+    pathDetails = getMoveDirection(toRank, toFile, cb);
 
     if (pathDetails[0] == "Diagonal")
         return freeSquaresDiagonal(toRank, toFile, pathDetails, cb);
@@ -65,7 +65,7 @@ bool ChessPiece::isPathClear(int fromRank, int fromFile, int toRank, int toFile,
     return false;
 }
 
-std::vector<std::string> ChessPiece::getMoveDirection(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)
+std::vector<std::string> ChessPiece::getMoveDirection(int toRank, int toFile, ChessBoard *cb)
 {
     std::vector<std::string> pathDetails;
     std::string type;
@@ -73,17 +73,17 @@ std::vector<std::string> ChessPiece::getMoveDirection(int fromRank, int fromFile
     std::string rankDirection;
 
     // Check if the move is up or down the board
-    if (fromRank - toRank < 0)
+    if (currentRank - toRank < 0)
         rankDirection = "Up";
-    else if (fromRank - toRank > 0)
+    else if (currentRank - toRank > 0)
         rankDirection = "Down";
     else
         rankDirection = "No Change";
 
     // Check if the move is left or right across the board
-    if (fromFile - toFile < 0)
+    if (currentFile - toFile < 0)
         fileDirection = "Right";
-    else if (fromFile - toFile > 0)
+    else if (currentFile - toFile > 0)
         fileDirection = "Left";
     else
         fileDirection = "No Change";

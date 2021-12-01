@@ -7,7 +7,7 @@ bool Rook::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, Chess
 {
     ChessPiece *thisPiece = cb->getChessPiece(fromRank, fromFile);
     // Check the path is clear and the move is either in horizontal (same rank) or vertical (same file)
-    if (thisPiece->isPathClear(fromRank, fromFile, toRank, toFile, cb) && ((fromFile == toFile) || (fromRank == toRank)))
+    if (thisPiece->isPathClear(toRank, toFile, cb) && ((currentFile == toFile) || (currentRank == toRank)))
     {
         return true;
     }

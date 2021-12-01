@@ -7,7 +7,7 @@ bool King::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, Chess
 {
     ChessPiece *thisPiece = cb->getChessPiece(fromRank, fromFile);
     // Check the path is clear and it is a magnitude of 1 - direction does not matter for King
-    if (thisPiece->isPathClear(fromRank, fromFile, toRank, toFile, cb) && ((fromFile - toFile) == abs(1) || (fromRank - toRank) == abs(1)))
+    if (thisPiece->isPathClear(toRank, toFile, cb) && ((currentFile - toFile) == abs(1) || (currentRank - toRank) == abs(1)))
         return true;
     else
         return false;

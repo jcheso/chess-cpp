@@ -392,6 +392,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
         isWhiteTurn = true;
     }
 
+    // TODO: MAKE FUNCTION
     // Make the move, set target to piece and original position to free
     delete targetPosition;
     pieceToMove->currentFile = toFile;
@@ -399,6 +400,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     board[toRank][toFile] = pieceToMove;
     board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free", fromRank, fromFile);
 
+    // TODO: MAKE FUNCTION
     if (isWhiteTurn && isCheck())
     {
         if (isCheckmate())

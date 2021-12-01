@@ -24,7 +24,7 @@ bool Pawn::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, Chess
     if (targetPosition->isPositionFree() && fromFile == toFile)
     {
         // If it is the first move, check the move is 2 squares max and square it passes through is free
-        if (isFirstMove(fromRank) && isPathClear(fromRank, fromFile, toRank, toFile, cb))
+        if (isFirstMove(fromRank) && isPathClear(toRank, toFile, cb))
         {
             if (getColour() == WHITE)
             {
