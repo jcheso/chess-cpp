@@ -23,9 +23,9 @@ std::string ChessPiece::getName() { return this->name; }
 
 bool ChessPiece::hasValidMove(int rankFrom, int fileFrom, int &rankTo, int &fileTo, ChessBoard *cb)
 {
-    for (rankTo = R_8; rankTo >= R_1; rankTo--)
+    for (rankTo = RANK_8; rankTo >= RANK_1; rankTo--)
     {
-        for (fileTo = F_A; fileTo <= F_H; fileTo++)
+        for (fileTo = FILE_A; fileTo <= FILE_H; fileTo++)
         {
             if (this->isValidMove(rankFrom, fileFrom, rankTo, fileTo, cb))
                 return true;

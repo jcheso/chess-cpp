@@ -3,26 +3,26 @@
 
 enum FileEnum
 {
-    F_A,
-    F_B,
-    F_C,
-    F_D,
-    F_E,
-    F_F,
-    F_G,
-    F_H,
+    FILE_A,
+    FILE_B,
+    FILE_C,
+    FILE_D,
+    FILE_E,
+    FILE_F,
+    FILE_G,
+    FILE_H,
 };
 
 enum RankEnum
 {
-    R_1,
-    R_2,
-    R_3,
-    R_4,
-    R_5,
-    R_6,
-    R_7,
-    R_8,
+    RANK_1,
+    RANK_2,
+    RANK_3,
+    RANK_4,
+    RANK_5,
+    RANK_6,
+    RANK_7,
+    RANK_8,
 };
 
 #endif

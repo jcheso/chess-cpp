@@ -7,27 +7,35 @@ class ChessPiece;
 class ChessBoard
 {
 private:
-    ChessPiece *board[8][8];
+    // ** VARIABLES **
     bool isWhiteTurn = true;
-    bool isGameComplete;
+    ChessPiece *board[8][8];
+
+    // ** GETTERS **
+    void getKingCoordinates(int &kingRank, int &kingFile, char colour);
+    bool isCheck();
+    bool isKingInCheck(int rankToCheck, int fileToCheck, char oppositeTeam);
+    bool isCheckmate();
     bool isStalemate();
+
+    // ** SETTERS **
+    void setBoard();
+    void clearBoard();
     void makeMove();
     void addPiece();
     void removePiece();
-    void setBoard();
-    void clearBoard();
-    void getKingCoordinates(int &kingRank, int &kingFile, char colour);
 
 public:
     ChessBoard();
     ~ChessBoard();
-    bool submitMove(std::string moveFrom, std::string moveTo);
+
+    // ** GETTERS **
     void printBoard();
-    void resetBoard();
-    bool isCheck();
-    bool isCheckmate();
-    bool isKingInCheck(int rankToCheck, int fileToCheck, char oppositeTeam);
     ChessPiece *getChessPiece(int rank, int file);
+
+    // ** SETTERS **
+    bool submitMove(std::string moveFrom, std::string moveTo);
+    void resetBoard();
 };
 
 #endif

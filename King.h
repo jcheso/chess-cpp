@@ -8,8 +8,6 @@ class King : public ChessPiece
 public:
     King(char colour, std::string name);
     virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) override;
-
-private:
 };
 
 #endif
