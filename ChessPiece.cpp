@@ -6,67 +6,28 @@
 
 #include "Helper.h"
 
-// ** Constructor, Destructor, Copy Constructor, Equals Assignment Overload **
+// ** Constructor, Destructor **
 ChessPiece::ChessPiece(int colour, std::string name, int rank, int file) : colour(colour), name(name), currentRank(rank), currentFile(file) {}
 ChessPiece::~ChessPiece() {}
-
-// ** GETTERS **
 bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
-bool ChessPiece::isPositionFree() {
-    if (getName() == "Free")
-        return true;
-    else
-        return false;
-}
 
-int ChessPiece::getColour() { return colour; }
-
-std::string ChessPiece::getName() { return name; }
-
-bool ChessPiece::hasValidMove(int &rankTo, int &fileTo, ChessBoard *cb) {
-    for (rankTo = RANK_8; rankTo >= RANK_1; rankTo--) {
-        for (fileTo = FILE_A; fileTo <= FILE_H; fileTo++) {
-            if (isMoveValid(currentRank, currentFile, rankTo, fileTo, cb))
-                return true;
-        }
-    }
-    return false;
-}
+// ** SETTERS **
 
 void ChessPiece::updatePosition(int rank, int file) {
     currentRank = rank;
     currentFile = file;
 }
-bool ChessPiece::isMoveValid(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) {
-    // Create a pointer to the piece(or empty spot) on the board
-    ChessPiece *targetPosition = cb->getChessPiece(toRank, toFile);
-    // If the position is the opposite player or is empty (i.e. not the players piece), check if the move is valid for the specific piece
-    if (colour != targetPosition->getColour())
-        return isLegalMove(fromRank, fromFile, toRank, toFile, cb);
-    else
-        return false;
-}
 
-bool ChessPiece::isPathClear(int toRank, int toFile, ChessBoard *cb) {
-    // Get the move type (horizontal, vertical or diagonal) and directionX & directionY
+// ** GETTERS **
+
+int ChessPiece::getColour() { return colour; }
+
+std::string ChessPiece::getName() { return name; }
+
+// TODO: Store these as ints with Enum
+std::vector<std::string> ChessPiece::getMoveDirection(int toRank, int toFile) {
     std::vector<std::string> pathDetails;
-    pathDetails = getMoveDirection(toRank, toFile, cb);
-
-    if (pathDetails[0] == "Diagonal")
-        return checkDiagonalPath(toRank, toFile, pathDetails, cb);
-
-    if (pathDetails[0] == "Horizontal")
-        return checkHorizontalPath(toRank, toFile, pathDetails[1], cb);
-
-    if (pathDetails[0] == "Vertical")
-        return checkVerticalPath(toRank, toFile, pathDetails[2], cb);
-
-    return false;
-}
-
-std::vector<std::string> ChessPiece::getMoveDirection(int toRank, int toFile, ChessBoard *cb) {
-    std::vector<std::string> pathDetails;
-    std::string type;
+    std::string direction;
     std::string fileDirection;
     std::string rankDirection;
 
@@ -86,22 +47,64 @@ std::vector<std::string> ChessPiece::getMoveDirection(int toRank, int toFile, Ch
     else
         fileDirection = "No Change";
 
-    // Check if it solely horizontal, vertical or diagonal
+    // Check if it is a horizontal, vertical or diagonal move
     if (rankDirection == "No Change" && fileDirection != "No Change")
-        type = "Horizontal";
+        direction = "Horizontal";
     else if (fileDirection == "No Change" && rankDirection != "No Change")
-        type = "Vertical";
+        direction = "Vertical";
     else
-        type = "Diagonal";
+        direction = "Diagonal";
 
-    pathDetails.push_back(type);
+    pathDetails.push_back(direction);
     pathDetails.push_back(fileDirection);
     pathDetails.push_back(rankDirection);
 
     return pathDetails;
 }
 
-bool ChessPiece::checkHorizontalPath(int toRank, int toFile, std::string fileDirection, ChessBoard *cb) {
+bool ChessPiece::isPositionFree() {
+    if (getName() == "Free")
+        return true;
+    else
+        return false;
+}
+
+bool ChessPiece::hasValidMove(int &rankTo, int &fileTo, ChessBoard *cb) {
+    for (rankTo = RANK_8; rankTo >= RANK_1; rankTo--) {
+        for (fileTo = FILE_A; fileTo <= FILE_H; fileTo++) {
+            if (isMoveValid(currentRank, currentFile, rankTo, fileTo, cb))
+                return true;
+        }
+    }
+    return false;
+}
+
+bool ChessPiece::isMoveValid(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) {
+    ChessPiece *targetPosition = cb->getChessPiece(toRank, toFile);
+    // If the position is the opposite player or is empty (i.e. not the players piece), check if the move is valid for the specific piece
+    if (colour != targetPosition->getColour())
+        return isLegalMove(fromRank, fromFile, toRank, toFile, cb);
+    else
+        return false;
+}
+
+bool ChessPiece::isPathClear(int toRank, int toFile, ChessBoard *cb) {
+    // Get the details of the move and check the corresponding path is free
+    std::vector<std::string> pathDetails;
+    pathDetails = getMoveDirection(toRank, toFile);
+    if (pathDetails[0] == "Diagonal")
+        return isDiagonalPathClear(toRank, toFile, pathDetails, cb);
+
+    if (pathDetails[0] == "Horizontal")
+        return isHorizontalPathClear(toRank, toFile, pathDetails[1], cb);
+
+    if (pathDetails[0] == "Vertical")
+        return isVerticalPathClear(toRank, toFile, pathDetails[2], cb);
+
+    return false;
+}
+
+bool ChessPiece::isHorizontalPathClear(int toRank, int toFile, std::string fileDirection, ChessBoard *cb) {
     // If the file direction is up, we want to count the squares above the target location
     if (fileDirection == "Right") {
         for (int filePath = currentFile + 1; filePath < toFile; filePath++) {
@@ -118,7 +121,7 @@ bool ChessPiece::checkHorizontalPath(int toRank, int toFile, std::string fileDir
     return true;
 }
 
-bool ChessPiece::checkVerticalPath(int toRank, int toFile, std::string rankDirection, ChessBoard *cb) {
+bool ChessPiece::isVerticalPathClear(int toRank, int toFile, std::string rankDirection, ChessBoard *cb) {
     // If the file direction is up, we want to count the squares above the target location
     if (rankDirection == "Up") {
         for (int rankPath = currentRank + 1; rankPath < toRank; rankPath++) {
@@ -135,7 +138,7 @@ bool ChessPiece::checkVerticalPath(int toRank, int toFile, std::string rankDirec
     return true;
 }
 
-bool ChessPiece::checkDiagonalPath(int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb) {
+bool ChessPiece::isDiagonalPathClear(int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb) {
     std::string fileDirection = pathDetails[1];
     std::string rankDirection = pathDetails[2];
 

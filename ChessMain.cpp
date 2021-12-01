@@ -4,15 +4,6 @@
 using namespace std;
 
 int main() {
-    // !! REFACTORING
-    // TODO: DRY - Don't Repeat Yourself
-    // TODO: Reduce Method Length to 10 lines where possible
-    // TODO: Reduce parameter list to <5
-    // TODO: Turn data clumps into classes
-    // TODO: Check for alternative classes that do the same thing
-    // TODO: Check for middle man classes
-    // TODO: Create thorough unit tests for all pieces
-
     cout << "========================\n";
     cout << "Testing the Chess Engine\n";
     cout << "========================\n\n";
