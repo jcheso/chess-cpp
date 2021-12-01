@@ -7,12 +7,10 @@ int main()
 	// !! REFACTORING
 	// TODO: DRY - Don't Repeat Yourself
 	// TODO: Reduce Method Length to 10 lines where possible
-	// TODO: Reduce paramter list to <5
+	// TODO: Reduce parameter list to <5
 	// TODO: Turn data clumps into classes
 	// TODO: Check for alternative classes that do the same thing
 	// TODO: Check for middle man classes
-	// TODO: Change virtual to override in child classes
-	// TODO: Track the current position of each piece in its object, then no need to pass it around everywhere
 	// TODO: Create thorough unit tests for all pieces
 
 	cout << "========================\n";
