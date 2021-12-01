@@ -29,7 +29,7 @@ bool ChessBoard::isStalemate()
         for (int file = FILE_A; file <= FILE_H; file++)
         {
             // Check if any piece has a valid move that doesn't result in the King being checked
-            if (getChessPiece(rank, file)->getColour() == thisTeam && getChessPiece(rank, file)->hasValidMove(rank, file, rankTo, fileTo, this))
+            if (getChessPiece(rank, file)->getColour() == thisTeam && getChessPiece(rank, file)->hasValidMove(rankTo, fileTo, this))
             {
                 ChessPiece *originalPiece = board[rankTo][fileTo];
                 ChessPiece *pieceToMove = board[rank][file];
@@ -198,11 +198,9 @@ bool ChessBoard::isKingInCheck(int rankToCheck, int fileToCheck, char oppositeTe
     {
         for (int file = FILE_A; file <= FILE_H; file++)
         {
-            // TODO: Just name the getChessPiece Ptr
-            if ((getChessPiece(rank, file)->getColour() == oppositeTeam) && (getChessPiece(rank, file)->isMoveValid(rank, file, rankToCheck, fileToCheck, this)))
-            {
+            ChessPiece *thisPiece = getChessPiece(rank, file);
+            if ((thisPiece->getColour() == oppositeTeam) && (thisPiece->isMoveValid(rank, file, rankToCheck, fileToCheck, this)))
                 return true;
-            }
         }
     }
     return false;

@@ -9,6 +9,7 @@ ChessPiece::ChessPiece(int colour, std::string name, int rank, int file) : colou
 ChessPiece::~ChessPiece() {}
 
 // ** GETTERS **
+bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
 bool ChessPiece::isPositionFree()
 {
     if (getName() == "Free")
@@ -21,20 +22,19 @@ int ChessPiece::getColour() { return colour; }
 
 std::string ChessPiece::getName() { return name; }
 
-bool ChessPiece::hasValidMove(int rankFrom, int fileFrom, int &rankTo, int &fileTo, ChessBoard *cb)
+bool ChessPiece::hasValidMove(int &rankTo, int &fileTo, ChessBoard *cb)
 {
     for (rankTo = RANK_8; rankTo >= RANK_1; rankTo--)
     {
         for (fileTo = FILE_A; fileTo <= FILE_H; fileTo++)
         {
-            if (isMoveValid(rankFrom, fileFrom, rankTo, fileTo, cb))
+            if (isMoveValid(currentRank, currentFile, rankTo, fileTo, cb))
                 return true;
         }
     }
     return false;
 }
 
-bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
 void ChessPiece::updatePosition(int rank, int file)
 {
     currentRank = rank;

@@ -10,12 +10,12 @@ class ChessPiece
 private:
     int colour;
     std::string name;
-    int currentRank, currentFile;
 
 protected:
     virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
 
 public:
+    int currentRank, currentFile;
     // ** Constructor, Destructor **
     ChessPiece(int colour, std::string name, int rank, int file);
     virtual ~ChessPiece();
@@ -26,8 +26,7 @@ public:
     std::string getName();
     std::vector<std::string> getMoveDirection(int toRank, int toFile, ChessBoard *cb);
     bool isPositionFree();
-    bool canTakePiece(int rank, int file, int rankToCheck, int fileToCheck, ChessBoard *cb);
-    bool hasValidMove(int fromRank, int fromFile, int &toRank, int &toFile, ChessBoard *cb);
+    bool hasValidMove(int &toRank, int &toFile, ChessBoard *cb);
     bool isMoveValid(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
     bool isPathClear(int toRank, int toFile, ChessBoard *cb);
     bool checkHorizontalPath(int toRank, int toFile, std::string fileDirection, ChessBoard *cb);
