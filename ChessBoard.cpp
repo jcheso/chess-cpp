@@ -368,11 +368,11 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
         else
             std::cout << "Black is in check" << std::endl;
     }
-    else if (!isCheck() && isCheckmate())
-    {
+    // else if (!isCheck() && isCheckmate())
+    // {
 
-        std::cout << "A stalemate has occured" << std::endl;
-    }
+    //     std::cout << "A stalemate has occured" << std::endl;
+    // }
 
     return true;
 }
