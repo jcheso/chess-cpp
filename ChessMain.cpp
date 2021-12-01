@@ -18,79 +18,148 @@ int main()
 	// TODO: Check if it is checkMate
 	// TODO: Check for stalemate
 	// TODO: Track the current position of each piece in its object, then no need to pass it around everywhere
+	// TODO: Check bishop can't move diagonal and up
+	// TODO: Change virtual to override in child classes
+	// TODO: Make destructors virtual
+	// TODO: Change Pawn isFirstMove to just check if it is in the right rank for the colour
+
+	// cout << "========================\n";
+	// cout << "Testing the Chess Engine\n";
+	// cout << "========================\n\n";
+
+	// ChessBoard cb;
+
+	// // **PRESET TESTS**
+	// cout << '\n';
+	// cb.submitMove("D7", "D6");
+	// cout << '\n';
+
+	// cb.submitMove("D4", "H6");
+	// cout << '\n';
+
+	// cb.submitMove("D2", "D4");
+	// cout << '\n';
+
+	// cb.submitMove("F8", "B4");
+	// cout << '\n';
+
+	// cout << "=========================\n";
+	// cout << "Alekhine vs. Vasic (1931)\n";
+	// cout << "=========================\n\n";
+
+	// cb.resetBoard();
+	// cout << '\n';
+
+	// cb.submitMove("E2", "E4");
+	// cb.submitMove("E7", "E6");
+	// cout << '\n';
+
+	// cb.submitMove("D2", "D4");
+	// cb.submitMove("D7", "D5");
+	// cout << '\n';
+
+	// cb.submitMove("B1", "C3");
+	// cb.submitMove("F8", "B4");
+	// cout << '\n';
+
+	// cb.submitMove("F1", "D3");
+	// cb.submitMove("B4", "C3");
+	// cout << '\n';
+
+	// cb.submitMove("B2", "C3");
+	// cb.submitMove("H7", "H6");
+	// cout << '\n';
+
+	// cb.submitMove("C1", "A3");
+	// cb.submitMove("B8", "D7");
+	// cout << '\n';
+
+	// cb.submitMove("D1", "E2");
+	// cb.submitMove("D5", "E4");
+	// cout << '\n';
+
+	// cb.submitMove("D3", "E4");
+	// cb.submitMove("G8", "F6");
+	// cout << '\n';
+
+	// cb.submitMove("E4", "D3");
+	// cb.submitMove("B7", "B6");
+	// cout << '\n';
+
+	// cb.submitMove("E2", "E6");
+	// cb.submitMove("F7", "E6");
+	// cout << '\n';
+
+	// cb.submitMove("D3", "G6");
+	// cout << '\n';
+
+	// cb.printBoard();
 
 	cout << "========================\n";
-	cout << "Testing the Chess Engine\n";
+	cout << "Testing for a Stalemate\n";
 	cout << "========================\n\n";
 
 	ChessBoard cb;
 
 	// **PRESET TESTS**
 	cout << '\n';
-	cb.submitMove("D7", "D6");
-	cout << '\n';
+	cb.submitMove("C2", "C4");
+	// cb.printBoard();
 
-	cb.submitMove("D4", "H6");
-	cout << '\n';
+	cb.submitMove("H7", "H5");
+	// cb.printBoard();
 
-	cb.submitMove("D2", "D4");
-	cout << '\n';
+	cb.submitMove("H2", "H4");
+	// cb.printBoard();
 
-	cb.submitMove("F8", "B4");
-	cout << '\n';
+	cb.submitMove("A7", "A5");
+	// cb.printBoard();
 
-	cout << "=========================\n";
-	cout << "Alekhine vs. Vasic (1931)\n";
-	cout << "=========================\n\n";
+	cb.submitMove("D1", "A4");
+	// cb.printBoard();
 
-	cb.resetBoard();
-	cout << '\n';
+	cb.submitMove("A8", "A6");
+	// cb.printBoard();
 
-	cb.submitMove("E2", "E4");
-	cb.submitMove("E7", "E6");
-	cout << '\n';
+	cb.submitMove("A4", "A5");
+	// cb.printBoard();
 
-	cb.submitMove("D2", "D4");
-	cb.submitMove("D7", "D5");
-	cout << '\n';
+	cb.submitMove("A6", "H6");
+	// cb.printBoard();
 
-	cb.submitMove("B1", "C3");
-	cb.submitMove("F8", "B4");
-	cout << '\n';
+	cb.submitMove("A5", "C7");
+	// cb.printBoard();
 
-	cb.submitMove("F1", "D3");
-	cb.submitMove("B4", "C3");
-	cout << '\n';
+	cb.submitMove("F7", "F6");
+	// cb.printBoard();
 
-	cb.submitMove("B2", "C3");
-	cb.submitMove("H7", "H6");
-	cout << '\n';
+	cb.submitMove("C7", "D7");
+	// cb.printBoard();
 
-	cb.submitMove("C1", "A3");
-	cb.submitMove("B8", "D7");
-	cout << '\n';
+	cb.submitMove("E8", "F7");
+	// cb.printBoard();
 
-	cb.submitMove("D1", "E2");
-	cb.submitMove("D5", "E4");
-	cout << '\n';
+	cb.submitMove("D7", "B7");
+	// cb.printBoard();
 
-	cb.submitMove("D3", "E4");
-	cb.submitMove("G8", "F6");
-	cout << '\n';
+	cb.submitMove("D8", "D3");
+	// cb.printBoard();
 
-	cb.submitMove("E4", "D3");
-	cb.submitMove("B7", "B6");
-	cout << '\n';
+	cb.submitMove("B7", "B8");
+	// cb.printBoard();
 
-	cb.submitMove("E2", "E6");
+	cb.submitMove("D3", "H7");
+	// cb.printBoard();
 
-	cb.submitMove("F7", "E6");
-	cout << '\n';
+	cb.submitMove("B8", "C8");
+	// cb.printBoard();
 
-	cb.submitMove("D3", "G6");
-	cout << '\n';
+	cb.submitMove("F7", "G6");
+	// cb.printBoard();
 
+	cb.submitMove("C8", "E6");
 	cb.printBoard();
+
 	// // ** PAWN UNIT TESTS **
 	// cout << "Test White pawn can move forward by 2" << endl;
 	// cb.submitMove("A2", "A4");

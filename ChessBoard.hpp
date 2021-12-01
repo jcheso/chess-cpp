@@ -24,9 +24,9 @@ public:
     bool submitMove(std::string moveFrom, std::string moveTo);
     void printBoard();
     void resetBoard();
-    bool isInCheck();
+    bool isCheck();
     bool isCheckmate();
-    bool isPieceInCheck(int rankToCheck, int fileToCheck, char oppositeTeam);
+    bool isKingInCheck(int rankToCheck, int fileToCheck, char oppositeTeam);
     ChessPiece *getChessPiece(int rank, int file);
 };
 
