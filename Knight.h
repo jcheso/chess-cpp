@@ -1,10 +1,10 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
-#include "ChessPiece.h"
 #include <string>
-class Knight : public ChessPiece
-{
-public:
+
+#include "ChessPiece.h"
+class Knight : public ChessPiece {
+   public:
     Knight(int colour, std::string name, int rank, int file);
     bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) override;
 };

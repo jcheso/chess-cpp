@@ -1,20 +1,20 @@
 #ifndef CHESS_PIECE_H
 #define CHESS_PIECE_H
 class ChessBoard;
-#include "ChessBoard.h"
 #include <string>
 #include <vector>
 
-class ChessPiece
-{
-private:
+#include "ChessBoard.h"
+
+class ChessPiece {
+   private:
     int colour;
     std::string name;
 
-protected:
+   protected:
     virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
 
-public:
+   public:
     int currentRank, currentFile;
     // ** Constructor, Destructor **
     ChessPiece(int colour, std::string name, int rank, int file);

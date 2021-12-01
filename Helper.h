@@ -1,8 +1,7 @@
 #ifndef HELPER_H
 #define HELPER_H
 
-enum FileEnum
-{
+enum FileEnum {
     FILE_A,
     FILE_B,
     FILE_C,
@@ -13,8 +12,7 @@ enum FileEnum
     FILE_H,
 };
 
-enum RankEnum
-{
+enum RankEnum {
     RANK_1,
     RANK_2,
     RANK_3,
@@ -25,8 +23,7 @@ enum RankEnum
     RANK_8,
 };
 
-enum PieceColours
-{
+enum PieceColours {
     BLACK,
     WHITE,
     NO_COLOUR,

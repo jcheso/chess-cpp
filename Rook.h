@@ -1,11 +1,11 @@
 #ifndef ROOK_H
 #define ROOK_H
-#include "ChessPiece.h"
 #include <string>
 
-class Rook : public ChessPiece
-{
-public:
+#include "ChessPiece.h"
+
+class Rook : public ChessPiece {
+   public:
     Rook(int colour, std::string name, int rank, int file);
     bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) override;
 };

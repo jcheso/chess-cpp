@@ -1,28 +1,34 @@
 #ifndef CHESS_BOARD_H
 #define CHESS_BOARD_H
 class ChessPiece;
-#include "ChessPiece.h"
 #include <string>
+
+#include "ChessPiece.h"
 #include "Helper.h"
 
-class ChessBoard
-{
-private:
+class ChessBoard {
+   private:
     // ** VARIABLES **
     ChessPiece *board[8][8];
 
     // ** GETTERS **
+
+    /* Check if it is white's turn */
     bool isWhiteTurn();
-    /* This method sets the rank and file of the King for the colour passed in */
-    void getKingCoordinates(int &kingRank, int &kingFile, int colour);
+    /* This method finds the rank and file of the King for the current player */
+    void getKingCoordinates(int &kingRank, int &kingFile);
     /* This method checks if the piece at rank and file passed in can be taken by the opposite team */
-    bool pieceCanBeTaken(int rankToCheck, int fileToCheck, int oppositionColour);
+    bool pieceCanBeTaken(int rankToCheck, int fileToCheck);
     /* This method checks if current player is in Check */
     bool isCheck();
     /* This method checks if current player is in Checkmate */
     bool isCheckmate();
     /* This method checks if there is a Stalemate */
     bool isStalemate();
+    /* This methods checks for check, checkmate, stalemate */
+    void checkGameConditions();
+    /* This methods checks if the player is moving it's own piece */
+    bool isPlayersTurn(ChessPiece *pieceToMove);
 
     // ** SETTERS **
 
@@ -30,8 +36,15 @@ private:
     void setBoard();
     /* This method deletes all the objects on the board from memory */
     void clearBoard();
+    /* This method handles the required input validation and move validation */
+    bool parseInput(std::string moveFrom, std::string moveTo, int &fromRank, int &fromFile, int &toRank, int &toFile);
 
-public:
+    // ** HELPERS **
+
+    /* This method prints the move to the console */
+    void printMove(ChessPiece *targetPosition, int fromRank, int fromFile, std::string moveFrom, std::string moveTo);
+
+   public:
     ChessBoard();
     ~ChessBoard();
 
