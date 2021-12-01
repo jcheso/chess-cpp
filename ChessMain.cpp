@@ -5,7 +5,6 @@ using namespace std;
 int main()
 {
 	// !! REFACTORING
-	// TODO: Tidy up Headers
 	// TODO: DRY - Don't Repeat Yourself
 	// TODO: Reduce Method Length to 10 lines where possible
 	// TODO: Reduce paramter list to <5
@@ -16,10 +15,7 @@ int main()
 	// TODO: Change the string checks to enum values instead
 	// TODO: Change virtual to override in child classes
 	// TODO: Track the current position of each piece in its object, then no need to pass it around everywhere
-	// TODO: Change Pawn isFirstMove to just check if it is in the right rank for the colour
 	// !! OPTIMISATION
-	// TODO: Remove virtual from inherited classes and add override keyword
-	// TODO: Make destructors virtual
 	// TODO: Use nullptr instead of empty objects
 	// TODO: Delete all new copies
 	// !! BUG FIXES
@@ -95,68 +91,77 @@ int main()
 	cb.submitMove("D3", "G6");
 	cout << '\n';
 
-	// cb.printBoard();
+	cb.printBoard();
 
-	// cout << "========================\n";
-	// cout << "Testing for a Stalemate\n";
-	// cout << "========================\n\n";
+	cout << "========================\n";
+	cout << "Testing for a Stalemate\n";
+	cout << "========================\n\n";
 
-	// cb.resetBoard();
+	cb.resetBoard();
 
-	// cb.submitMove("C2", "C4");
+	cb.submitMove("C2", "C4");
 
-	// cb.submitMove("H7", "H5");
+	cb.submitMove("H7", "H5");
 
-	// cb.submitMove("H2", "H4");
+	cb.submitMove("H2", "H4");
 
-	// cb.submitMove("A7", "A5");
+	cb.submitMove("A7", "A5");
 
-	// cb.submitMove("D1", "A4");
+	cb.submitMove("D1", "A4");
 
-	// cb.submitMove("A8", "A6");
+	cb.submitMove("A8", "A6");
 
-	// cb.submitMove("A4", "A5");
+	cb.submitMove("A4", "A5");
 
-	// cb.submitMove("A6", "H6");
+	cb.submitMove("A6", "H6");
 
-	// cb.submitMove("A5", "C7");
+	cb.submitMove("A5", "C7");
 
-	// cb.submitMove("F7", "F6");
+	cb.submitMove("F7", "F6");
 
-	// cb.submitMove("C7", "D7");
+	cb.submitMove("C7", "D7");
 
-	// cb.submitMove("E8", "F7");
+	cb.submitMove("E8", "F7");
 
-	// cb.submitMove("D7", "B7");
+	cb.submitMove("D7", "B7");
 
-	// cb.submitMove("D8", "D3");
+	cb.submitMove("D8", "D3");
 
-	// cb.submitMove("B7", "B8");
+	cb.submitMove("B7", "B8");
 
-	// cb.submitMove("D3", "H7");
+	cb.submitMove("D3", "H7");
 
-	// cb.submitMove("B8", "C8");
+	cb.submitMove("B8", "C8");
 
-	// cb.submitMove("F7", "G6");
+	cb.submitMove("F7", "G6");
 
-	// cb.submitMove("C8", "E6");
+	cb.submitMove("C8", "E6");
 
-	// // ** PAWN UNIT TESTS **
-	// cout << "Test White pawn can move forward by 2" << endl;
-	// cb.submitMove("A2", "A4");
-	// cb.printBoard();
+	cb.resetBoard();
+	// ** PAWN UNIT TESTS **
+	cout << "Test White pawn can move forward by 2" << endl;
+	cb.submitMove("A2", "A4");
+	cb.printBoard();
 
-	// cout << "Test Black pawn can move forward by 2" << endl;
-	// cb.submitMove("B7", "B5");
-	// cb.printBoard();
+	cout << "Test Black pawn can move forward by 2" << endl;
+	cb.submitMove("B7", "B5");
+	cb.printBoard();
 
-	// cout << "Test White pawn can move forward by 1" << endl;
-	// cb.submitMove("B2", "B3");
-	// cb.printBoard();
+	cout << "Test White pawn cannot move forward by 2" << endl;
+	cb.submitMove("A4", "A6");
+	cb.printBoard();
 
-	// cout << "Test Black pawn can move forward by 1" << endl;
-	// cb.submitMove("C7", "C6");
-	// cb.printBoard();
+	cout << "Test White pawn cann move forward by 2" << endl;
+	cb.submitMove("B2", "B4");
+	cb.printBoard();
+
+	cout << "Test Black pawn cannot move forward by 2" << endl;
+	cb.submitMove("B5", "B3");
+	cb.printBoard();
+
+	cout << "Test Black pawn can take diagonal" << endl;
+	cb.submitMove("B5", "A4");
+	cb.printBoard();
 
 	// // Test White pawn cannot move diagonal by 2
 	// cb.submitMove("C2", "D4");

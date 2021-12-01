@@ -16,7 +16,6 @@ protected:
     virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
 
 public:
-    bool isFirstMove = true;
     // ** Constructor, Destructor **
     ChessPiece(char colour, std::string name);
     virtual ~ChessPiece();

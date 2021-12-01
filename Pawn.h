@@ -6,6 +6,7 @@ class Pawn : public ChessPiece
 {
 public:
     Pawn(char colour, std::string name);
+    bool isFirstMove(int fromRank);
     bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) override;
 };
 

@@ -325,6 +325,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     // Get the piece at that position
     ChessPiece *pieceToMove = getChessPiece(fromRank, fromFile);
     ChessPiece *targetPosition = getChessPiece(toRank, toFile);
+
     // Check if there is a piece at the position
     if (pieceToMove->isPositionFree())
     {
@@ -379,11 +380,8 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
         isWhiteTurn = true;
     }
 
-    // ? Keep a 2D set of possible moves and just check if this move is in there, then recalculate each turn for every piece?
-    // ? This way we can check for checkmate and also check for stalemate - i.e. set contains king coordinates or set is empty.
     // Make the move, set target to piece and original position to free
     board[toRank][toFile] = pieceToMove;
-    pieceToMove->isFirstMove = false;
     board[fromRank][fromFile] = new ChessPiece('.', "Free");
 
     if (isWhiteTurn && isCheck())
