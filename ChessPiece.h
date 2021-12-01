@@ -5,7 +5,6 @@ class ChessBoard;
 #include <string>
 #include <vector>
 
-// TODO - Store the rank & file of each chess piece inside it so we can getCoords
 class ChessPiece
 {
 private:
@@ -20,13 +19,15 @@ public:
     // ** Constructor, Destructor **
     ChessPiece(int colour, std::string name, int rank, int file);
     virtual ~ChessPiece();
+    // ** SETTERS **
+    void updatePosition(int rank, int file);
     // ** GETTERS **
-    bool canTakePiece(int rank, int file, int rankToCheck, int fileToCheck, ChessBoard *cb);
     int getColour();
     std::string getName();
     std::vector<std::string> getMoveDirection(int toRank, int toFile, ChessBoard *cb);
     bool isPositionFree();
-    bool hasValidMove(int rankFrom, int fileFrom, int &rankTo, int &fileTo, ChessBoard *cb);
+    bool canTakePiece(int rank, int file, int rankToCheck, int fileToCheck, ChessBoard *cb);
+    bool hasValidMove(int fromRank, int fromFile, int &toRank, int &toFile, ChessBoard *cb);
     bool isValidMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
     bool isPathClear(int toRank, int toFile, ChessBoard *cb);
     bool freeSquaresHorizontal(int toRank, int toFile, std::string fileDirection, ChessBoard *cb);

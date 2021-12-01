@@ -35,7 +35,11 @@ bool ChessPiece::hasValidMove(int rankFrom, int fileFrom, int &rankTo, int &file
 }
 
 bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
-
+void ChessPiece::updatePosition(int rank, int file)
+{
+    currentRank = rank;
+    currentFile = file;
+}
 bool ChessPiece::isValidMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)
 {
     // Create a pointer to the piece(or empty spot) on the board
