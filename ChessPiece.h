@@ -11,16 +11,15 @@ class ChessPiece
 private:
     int colour;
     std::string name;
-    int rank, file;
 
 protected:
     virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
 
 public:
+    int currentRank, currentFile;
     // ** Constructor, Destructor **
     ChessPiece(int colour, std::string name, int rank, int file);
     virtual ~ChessPiece();
-
     // ** GETTERS **
     bool canTakePiece(int rank, int file, int rankToCheck, int fileToCheck, ChessBoard *cb);
     int getColour();
@@ -30,9 +29,9 @@ public:
     bool hasValidMove(int rankFrom, int fileFrom, int &rankTo, int &fileTo, ChessBoard *cb);
     bool isValidMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
     bool isPathClear(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
-    bool freeSquaresHorizontal(int fromRank, int fromFile, int toRank, int toFile, std::string fileDirection, ChessBoard *cb);
-    bool freeSquaresVertical(int fromRank, int fromFile, int toRank, int toFile, std::string rankDirection, ChessBoard *cb);
-    bool freeSquaresDiagonal(int fromRank, int fromFile, int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb);
+    bool freeSquaresHorizontal(int toRank, int toFile, std::string fileDirection, ChessBoard *cb);
+    bool freeSquaresVertical(int toRank, int toFile, std::string rankDirection, ChessBoard *cb);
+    bool freeSquaresDiagonal(int toRank, int toFile, std::vector<std::string> pathDetails, ChessBoard *cb);
 };
 
 #endif

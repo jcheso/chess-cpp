@@ -394,6 +394,8 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
 
     // Make the move, set target to piece and original position to free
     delete targetPosition;
+    pieceToMove->currentFile = toFile;
+    pieceToMove->currentRank = toRank;
     board[toRank][toFile] = pieceToMove;
     board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free", fromRank, fromFile);
 

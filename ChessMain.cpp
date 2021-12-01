@@ -149,13 +149,13 @@ int main()
 	cb.submitMove("B2", "B4");
 	cb.printBoard();
 
-	cout << "Test Black pawn cannot move forward by 2" << endl;
-	cb.submitMove("B5", "B3");
-	cb.printBoard();
+	// cout << "Test Black pawn cannot move forward by 2" << endl;
+	// cb.submitMove("B5", "B3");
+	// cb.printBoard();
 
-	cout << "Test Black pawn can take diagonal" << endl;
-	cb.submitMove("B5", "A4");
-	cb.printBoard();
+	// cout << "Test Black pawn can take diagonal" << endl;
+	// cb.submitMove("B5", "A4");
+	// cb.printBoard();
 
 	// // Test White pawn cannot move diagonal by 2
 	// cb.submitMove("C2", "D4");
