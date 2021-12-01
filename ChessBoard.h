@@ -12,7 +12,7 @@ private:
     ChessPiece *board[8][8];
 
     // ** GETTERS **
-    void getKingCoordinates(int &kingRank, int &kingFile, char colour);
+    void getKingCoordinates(int &kingRank, int &kingFile, int colour);
     bool isCheck();
     bool isKingInCheck(int rankToCheck, int fileToCheck, char oppositeTeam);
     bool isCheckmate();

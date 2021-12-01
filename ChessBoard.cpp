@@ -39,12 +39,14 @@ bool ChessBoard::isStalemate()
                 // If moving the piece results in a check
                 if (isCheck())
                 {
+                    delete getChessPiece(rank, file);
                     board[rankTo][fileTo] = originalPiece;
                     board[rank][file] = pieceToMove;
                     return true;
                 }
                 else
                 {
+                    delete getChessPiece(rank, file);
                     board[rankTo][fileTo] = originalPiece;
                     board[rank][file] = pieceToMove;
                     return false;
@@ -97,11 +99,12 @@ bool ChessBoard::isCheckmate()
                 if (!isKingInCheck(rank, file, oppositeTeam))
                 {
                     // If the king is no longer in check, restore the original free space and return false to being in Check
+                    delete getChessPiece(rank, file);
                     board[rank][file] = originalPiece;
                     return false;
                 }
                 // If the king is still in check regardless of the space, restore the free space and move on with the other checks.
-
+                delete getChessPiece(rank, file);
                 board[rank][file] = originalPiece;
             }
         }
@@ -142,7 +145,7 @@ bool ChessBoard::isCheckmate()
     return true;
 }
 
-void ChessBoard::getKingCoordinates(int &kingRank, int &kingFile, char colour)
+void ChessBoard::getKingCoordinates(int &kingRank, int &kingFile, int colour)
 {
     for (int rank = RANK_8; rank >= RANK_1; rank--)
     {
@@ -160,7 +163,7 @@ void ChessBoard::getKingCoordinates(int &kingRank, int &kingFile, char colour)
 bool ChessBoard::isCheck()
 {
 
-    char colourToCheck;
+    int colourToCheck;
     char oppositeTeam;
     int kingToCheckRank;
     int kingToCheckFile;
@@ -210,7 +213,7 @@ void ChessBoard::clearBoard()
     for (int rank = RANK_8; rank >= RANK_1; rank--)
     {
         for (int file = FILE_A; file <= FILE_H; file++)
-            delete getChessPiece(rank, file);
+            delete board[rank][file];
     }
 }
 
@@ -248,7 +251,9 @@ void ChessBoard::setBoard()
         for (int file = FILE_A; file <= FILE_H; file++)
             board[rank][file] = new ChessPiece(NO_COLOUR, "Free");
     }
+
     std::cout << "A new chess game is started!" << std::endl;
+
     // Set white's turn
     isWhiteTurn = true;
 }
@@ -388,6 +393,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     }
 
     // Make the move, set target to piece and original position to free
+    delete targetPosition;
     board[toRank][toFile] = pieceToMove;
     board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free");
 

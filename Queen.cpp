@@ -2,7 +2,7 @@
 #include "ChessPiece.h"
 #include <string>
 
-Queen::Queen(char colour, std::string name) : ChessPiece(colour, name) {}
+Queen::Queen(int colour, std::string name) : ChessPiece(colour, name) {}
 bool Queen::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb)
 {
     ChessPiece *thisPiece = cb->getChessPiece(fromRank, fromFile);

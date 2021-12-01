@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-Pawn::Pawn(char colour, std::string name) : ChessPiece(colour, name) {}
+Pawn::Pawn(int colour, std::string name) : ChessPiece(colour, name) {}
 
 bool Pawn::isFirstMove(int fromRank)
 {

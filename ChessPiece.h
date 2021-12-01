@@ -17,7 +17,7 @@ protected:
 
 public:
     // ** Constructor, Destructor **
-    ChessPiece(char colour, std::string name);
+    ChessPiece(int colour, std::string name);
     virtual ~ChessPiece();
 
     // ** GETTERS **

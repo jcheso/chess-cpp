@@ -32,8 +32,4 @@ enum PieceColours
     NO_COLOUR,
 };
 
-// enum PieceNames{
-
-// }
-
 #endif

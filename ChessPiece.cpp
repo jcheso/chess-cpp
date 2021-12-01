@@ -5,7 +5,7 @@
 #include <vector>
 
 // ** Constructor, Destructor, Copy Constructor, Equals Assignment Overload **
-ChessPiece::ChessPiece(char colour, std::string name) : colour(colour), name(name) {}
+ChessPiece::ChessPiece(int colour, std::string name) : colour(colour), name(name) {}
 ChessPiece::~ChessPiece() {}
 
 // ** GETTERS **
