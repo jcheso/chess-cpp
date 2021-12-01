@@ -6,7 +6,7 @@
 class Bishop : public ChessPiece
 {
 public:
-    Bishop(int colour, std::string name);
+    Bishop(int colour, std::string name, int rank, int file);
     bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) override;
 };
 

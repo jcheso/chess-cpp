@@ -5,7 +5,7 @@
 class Knight : public ChessPiece
 {
 public:
-    Knight(int colour, std::string name);
+    Knight(int colour, std::string name, int rank, int file);
     bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) override;
 };
 

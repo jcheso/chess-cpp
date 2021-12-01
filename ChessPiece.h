@@ -11,13 +11,14 @@ class ChessPiece
 private:
     int colour;
     std::string name;
+    int rank, file;
 
 protected:
     virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
 
 public:
     // ** Constructor, Destructor **
-    ChessPiece(int colour, std::string name);
+    ChessPiece(int colour, std::string name, int rank, int file);
     virtual ~ChessPiece();
 
     // ** GETTERS **

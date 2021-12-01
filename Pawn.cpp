@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-Pawn::Pawn(int colour, std::string name) : ChessPiece(colour, name) {}
+Pawn::Pawn(int colour, std::string name, int rank, int file) : ChessPiece(colour, name, rank, file) {}
 
 bool Pawn::isFirstMove(int fromRank)
 {

@@ -34,7 +34,7 @@ bool ChessBoard::isStalemate()
                 ChessPiece *originalPiece = board[rankTo][fileTo];
                 ChessPiece *pieceToMove = board[rank][file];
                 board[rankTo][fileTo] = pieceToMove;
-                board[rank][file] = new ChessPiece(NO_COLOUR, "Free");
+                board[rank][file] = new ChessPiece(NO_COLOUR, "Free", rank, file);
 
                 // If moving the piece results in a check
                 if (isCheck())
@@ -93,7 +93,7 @@ bool ChessBoard::isCheckmate()
             {
                 // If the move is valid, place a temp king in that position
                 ChessPiece *originalPiece = board[rank][file];
-                board[rank][file] = new King(thisTeam, "King");
+                board[rank][file] = new King(thisTeam, "King", rank, file);
 
                 // Check if that king is in check
                 if (!isKingInCheck(rank, file, oppositeTeam))
@@ -221,35 +221,35 @@ void ChessBoard::setBoard()
 {
     // Fill the board with Black Pieces
     for (int file = FILE_A; file <= FILE_H; file++)
-        board[RANK_7][file] = new Pawn(BLACK, "Pawn");
+        board[RANK_7][file] = new Pawn(BLACK, "Pawn", RANK_7, file);
 
-    board[RANK_8][FILE_A] = new Rook(BLACK, "Rook");
-    board[RANK_8][FILE_B] = new Knight(BLACK, "Knight");
-    board[RANK_8][FILE_C] = new Bishop(BLACK, "Bishop");
-    board[RANK_8][FILE_D] = new Queen(BLACK, "Queen");
-    board[RANK_8][FILE_E] = new King(BLACK, "King");
-    board[RANK_8][FILE_F] = new Bishop(BLACK, "Bishop");
-    board[RANK_8][FILE_G] = new Knight(BLACK, "Knight");
-    board[RANK_8][FILE_H] = new Rook(BLACK, "Rook");
+    board[RANK_8][FILE_A] = new Rook(BLACK, "Rook", RANK_8, FILE_A);
+    board[RANK_8][FILE_B] = new Knight(BLACK, "Knight", RANK_8, FILE_B);
+    board[RANK_8][FILE_C] = new Bishop(BLACK, "Bishop", RANK_8, FILE_C);
+    board[RANK_8][FILE_D] = new Queen(BLACK, "Queen", RANK_8, FILE_D);
+    board[RANK_8][FILE_E] = new King(BLACK, "King", RANK_8, FILE_E);
+    board[RANK_8][FILE_F] = new Bishop(BLACK, "Bishop", RANK_8, FILE_F);
+    board[RANK_8][FILE_G] = new Knight(BLACK, "Knight", RANK_8, FILE_G);
+    board[RANK_8][FILE_H] = new Rook(BLACK, "Rook", RANK_8, FILE_H);
 
     // Fill the board with White Pieces
     for (int file = FILE_A; file <= FILE_H; file++)
-        board[RANK_2][file] = new Pawn(WHITE, "Pawn");
+        board[RANK_2][file] = new Pawn(WHITE, "Pawn", RANK_2, file);
 
-    board[RANK_1][FILE_A] = new Rook(WHITE, "Rook");
-    board[RANK_1][FILE_B] = new Knight(WHITE, "Knight");
-    board[RANK_1][FILE_C] = new Bishop(WHITE, "Bishop");
-    board[RANK_1][FILE_D] = new Queen(WHITE, "Queen");
-    board[RANK_1][FILE_E] = new King(WHITE, "King");
-    board[RANK_1][FILE_F] = new Bishop(WHITE, "Bishop");
-    board[RANK_1][FILE_G] = new Knight(WHITE, "Knight");
-    board[RANK_1][FILE_H] = new Rook(WHITE, "Rook");
+    board[RANK_1][FILE_A] = new Rook(WHITE, "Rook", RANK_1, FILE_A);
+    board[RANK_1][FILE_B] = new Knight(WHITE, "Knight", RANK_1, FILE_B);
+    board[RANK_1][FILE_C] = new Bishop(WHITE, "Bishop", RANK_1, FILE_C);
+    board[RANK_1][FILE_D] = new Queen(WHITE, "Queen", RANK_1, FILE_D);
+    board[RANK_1][FILE_E] = new King(WHITE, "King", RANK_1, FILE_E);
+    board[RANK_1][FILE_F] = new Bishop(WHITE, "Bishop", RANK_1, FILE_F);
+    board[RANK_1][FILE_G] = new Knight(WHITE, "Knight", RANK_1, FILE_G);
+    board[RANK_1][FILE_H] = new Rook(WHITE, "Rook", RANK_1, FILE_H);
 
     // Fill the remainder of the board with empty pieces
     for (int rank = RANK_3; rank <= RANK_6; rank++)
     {
         for (int file = FILE_A; file <= FILE_H; file++)
-            board[rank][file] = new ChessPiece(NO_COLOUR, "Free");
+            board[rank][file] = new ChessPiece(NO_COLOUR, "Free", rank, file);
     }
 
     std::cout << "A new chess game is started!" << std::endl;
@@ -395,7 +395,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     // Make the move, set target to piece and original position to free
     delete targetPosition;
     board[toRank][toFile] = pieceToMove;
-    board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free");
+    board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free", fromRank, fromFile);
 
     if (isWhiteTurn && isCheck())
     {
