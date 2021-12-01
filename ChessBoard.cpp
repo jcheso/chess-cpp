@@ -104,7 +104,11 @@ bool ChessBoard::isCheckmate() {
         }
     }
 
-    // Check how many pieces can take the King, if it is more than 1 return true to checkmate
+    // Check if a piece can make a move that interposes the check
+    if (!moveResultsInCheck())
+        return false;
+
+    // Check how many pieces can take the King
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             ChessPiece *thisPiece = getChessPiece(rank, file);
@@ -129,13 +133,13 @@ bool ChessBoard::isCheckmate() {
             }
         }
     }
+    // If king cannot move, check can not be interposed and attacking piece cannot be taken return true to checkmate
     return true;
 }
 
-bool ChessBoard::isStalemate() {
+bool ChessBoard::moveResultsInCheck() {
     int rankTo, fileTo;
 
-    // Test if the a piece can move somewhere where the King is not in check
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             // Check if any piece has a valid move that doesn't result in the King being checked
@@ -177,7 +181,7 @@ void ChessBoard::checkGameConditions() {
             std::cout << "Black is in checkmate" << std::endl;
         else
             std::cout << "Black is in check" << std::endl;
-    } else if (!isCheck() && isStalemate())
+    } else if (!isCheck() && moveResultsInCheck())
         std::cout << "A stalemate has occurred" << std::endl;
 }
 
@@ -190,7 +194,8 @@ bool ChessBoard::isPlayersTurn(ChessPiece *pieceToMove) {
     if (!isWhiteTurn() && pieceToMove->getColour() == WHITE) {
         std::cout << "It is not White's turn to move!" << std::endl;
         return false;
-    }
+    } else
+        return true;
 }
 
 // ** PRIVATE SETTERS **

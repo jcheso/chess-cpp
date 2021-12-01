@@ -25,6 +25,8 @@ class ChessBoard {
     bool isCheckmate();
     /* This method checks if there is a Stalemate */
     bool isStalemate();
+    /* This method checks if the player can make a move that doesn't result in check */
+    bool moveResultsInCheck();
     /* This methods checks for check, checkmate, stalemate */
     void checkGameConditions();
     /* This methods checks if the player is moving it's own piece */
