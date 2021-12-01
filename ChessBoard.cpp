@@ -89,7 +89,7 @@ bool ChessBoard::isCheckmate()
         for (int file = FILE_A; file <= FILE_H; file++)
         {
             // Check if it can move somewhere, then check if it is still in check in that move - repeat for all possible moves
-            if (king->isValidMove(kingRank, kingFile, rank, file, this))
+            if (king->isMoveValid(kingRank, kingFile, rank, file, this))
             {
                 // If the move is valid, place a temp king in that position
                 ChessPiece *originalPiece = board[rank][file];
@@ -115,7 +115,7 @@ bool ChessBoard::isCheckmate()
     {
         for (int file = FILE_A; file <= FILE_H; file++)
         {
-            if (getChessPiece(rank, file)->getColour() == oppositeTeam && getChessPiece(rank, file)->isValidMove(rank, file, kingRank, kingFile, this))
+            if (getChessPiece(rank, file)->getColour() == oppositeTeam && getChessPiece(rank, file)->isMoveValid(rank, file, kingRank, kingFile, this))
             {
                 attackingPieceFile = file;
                 attackingPieceRank = rank;
@@ -131,7 +131,7 @@ bool ChessBoard::isCheckmate()
         {
             for (int file = FILE_A; file <= FILE_H; file++)
             {
-                if (getChessPiece(rank, file)->getColour() == thisTeam && getChessPiece(rank, file)->isValidMove(rank, file, attackingPieceRank, attackingPieceFile, this))
+                if (getChessPiece(rank, file)->getColour() == thisTeam && getChessPiece(rank, file)->isMoveValid(rank, file, attackingPieceRank, attackingPieceFile, this))
                     return false;
             }
         }
@@ -199,7 +199,7 @@ bool ChessBoard::isKingInCheck(int rankToCheck, int fileToCheck, char oppositeTe
         for (int file = FILE_A; file <= FILE_H; file++)
         {
             // TODO: Just name the getChessPiece Ptr
-            if ((getChessPiece(rank, file)->getColour() == oppositeTeam) && (getChessPiece(rank, file)->isValidMove(rank, file, rankToCheck, fileToCheck, this)))
+            if ((getChessPiece(rank, file)->getColour() == oppositeTeam) && (getChessPiece(rank, file)->isMoveValid(rank, file, rankToCheck, fileToCheck, this)))
             {
                 return true;
             }
@@ -358,7 +358,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     }
 
     // Then check if the move is valid
-    if (!getChessPiece(fromRank, fromFile)->isValidMove(fromRank, fromFile, toRank, toFile, this))
+    if (!getChessPiece(fromRank, fromFile)->isMoveValid(fromRank, fromFile, toRank, toFile, this))
     {
         // If not valid
         if (isWhiteTurn)
@@ -395,8 +395,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo)
     // TODO: MAKE FUNCTION
     // Make the move, set target to piece and original position to free
     delete targetPosition;
-    pieceToMove->currentFile = toFile;
-    pieceToMove->currentRank = toRank;
+    pieceToMove->updatePosition(toRank, toFile);
     board[toRank][toFile] = pieceToMove;
     board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free", fromRank, fromFile);
 
