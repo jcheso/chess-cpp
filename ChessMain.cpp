@@ -74,69 +74,69 @@ int main() {
     cb.submitMove("D3", "G6");
     cout << '\n';
 
-    cb.printBoard();
+    // cb.printBoard();
 
-    cout << "========================\n";
-    cout << "Testing for a Stalemate\n";
-    cout << "========================\n\n";
+    // cout << "========================\n";
+    // cout << "Testing for a Stalemate\n";
+    // cout << "========================\n\n";
 
-    cb.resetBoard();
+    // cb.resetBoard();
 
-    cb.submitMove("C2", "C4");
+    // cb.submitMove("C2", "C4");
 
-    cb.submitMove("H7", "H5");
+    // cb.submitMove("H7", "H5");
 
-    cb.submitMove("H2", "H4");
+    // cb.submitMove("H2", "H4");
 
-    cb.submitMove("A7", "A5");
+    // cb.submitMove("A7", "A5");
 
-    cb.submitMove("D1", "A4");
+    // cb.submitMove("D1", "A4");
 
-    cb.submitMove("A8", "A6");
+    // cb.submitMove("A8", "A6");
 
-    cb.submitMove("A4", "A5");
+    // cb.submitMove("A4", "A5");
 
-    cb.submitMove("A6", "H6");
+    // cb.submitMove("A6", "H6");
 
-    cb.submitMove("A5", "C7");
+    // cb.submitMove("A5", "C7");
 
-    cb.submitMove("F7", "F6");
+    // cb.submitMove("F7", "F6");
 
-    cb.submitMove("C7", "D7");
+    // cb.submitMove("C7", "D7");
 
-    cb.submitMove("E8", "F7");
+    // cb.submitMove("E8", "F7");
 
-    cb.submitMove("D7", "B7");
+    // cb.submitMove("D7", "B7");
 
-    cb.submitMove("D8", "D3");
+    // cb.submitMove("D8", "D3");
 
-    cb.submitMove("B7", "B8");
+    // cb.submitMove("B7", "B8");
 
-    cb.submitMove("D3", "H7");
+    // cb.submitMove("D3", "H7");
 
-    cb.submitMove("B8", "C8");
+    // cb.submitMove("B8", "C8");
 
-    cb.submitMove("F7", "G6");
+    // cb.submitMove("F7", "G6");
 
-    cb.submitMove("C8", "E6");
+    // cb.submitMove("C8", "E6");
 
-    cb.resetBoard();
-    // ** PAWN UNIT TESTS **
-    cout << "Test White pawn can move forward by 2" << endl;
-    cb.submitMove("A2", "A4");
-    cb.printBoard();
+    // cb.resetBoard();
+    // // ** PAWN UNIT TESTS **
+    // cout << "Test White pawn can move forward by 2" << endl;
+    // cb.submitMove("A2", "A4");
+    // cb.printBoard();
 
-    cout << "Test Black pawn can move forward by 2" << endl;
-    cb.submitMove("B7", "B5");
-    cb.printBoard();
+    // cout << "Test Black pawn can move forward by 2" << endl;
+    // cb.submitMove("B7", "B5");
+    // cb.printBoard();
 
-    cout << "Test White pawn cannot move forward by 2" << endl;
-    cb.submitMove("A4", "A6");
-    cb.printBoard();
+    // cout << "Test White pawn cannot move forward by 2" << endl;
+    // cb.submitMove("A4", "A6");
+    // cb.printBoard();
 
-    cout << "Test White pawn cann move forward by 2" << endl;
-    cb.submitMove("B2", "B4");
-    cb.printBoard();
+    // cout << "Test White pawn cann move forward by 2" << endl;
+    // cb.submitMove("B2", "B4");
+    // cb.printBoard();
 
     // cout << "Test Black pawn cannot move forward by 2" << endl;
     // cb.submitMove("B5", "B3");

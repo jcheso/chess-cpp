@@ -5,10 +5,9 @@
 #include "ChessPiece.h"
 
 Rook::Rook(int colour, std::string name, int rank, int file) : ChessPiece(colour, name, rank, file) {}
-bool Rook::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) {
-    ChessPiece *thisPiece = cb->getChessPiece(fromRank, fromFile);
+bool Rook::isLegalMove(int toRank, int toFile, ChessBoard *cb) {
     // Check the path is clear and the move is either in horizontal (same rank) or vertical (same file)
-    if (thisPiece->isPathClear(toRank, toFile, cb) && ((currentFile == toFile) || (currentRank == toRank))) {
+    if (isPathClear(toRank, toFile, cb) && ((currentFile == toFile) || (currentRank == toRank))) {
         return true;
     }
 

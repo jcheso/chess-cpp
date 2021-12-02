@@ -9,7 +9,7 @@
 // ** Constructor, Destructor **
 ChessPiece::ChessPiece(int colour, std::string name, int rank, int file) : colour(colour), name(name), currentRank(rank), currentFile(file) {}
 ChessPiece::~ChessPiece() {}
-bool ChessPiece::isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) { return false; }
+bool ChessPiece::isLegalMove(int toRank, int toFile, ChessBoard *cb) { return false; }
 
 // ** SETTERS **
 
@@ -83,7 +83,7 @@ bool ChessPiece::isMoveValid(int fromRank, int fromFile, int toRank, int toFile,
     ChessPiece *targetPosition = cb->getChessPiece(toRank, toFile);
     // If the position is the opposite player or is empty (i.e. not the players piece), check if the move is valid for the specific piece
     if (colour != targetPosition->getColour())
-        return isLegalMove(fromRank, fromFile, toRank, toFile, cb);
+        return isLegalMove(toRank, toFile, cb);
     else
         return false;
 }

@@ -75,8 +75,9 @@ bool ChessBoard::isCheck() {
         return false;
 }
 
+// !! WHY IS THIS TRIGGERING ON LINUX BUT NOT WINDOWS
 bool ChessBoard::isCheckmate() {
-    int kingRank, kingFile, pieceCount, attackingPieceRank, attackingPieceFile;
+    int kingRank, kingFile, attackingPieceCount, attackingPieceRank, attackingPieceFile;
 
     getKingCoordinates(kingRank, kingFile);
     ChessPiece *king = getChessPiece(kingRank, kingFile);
@@ -115,16 +116,16 @@ bool ChessBoard::isCheckmate() {
             if (thisPiece->getColour() == oppositionPlayer && thisPiece->isMoveValid(rank, file, kingRank, kingFile, this)) {
                 attackingPieceFile = file;
                 attackingPieceRank = rank;
-                pieceCount++;
+                attackingPieceCount++;
             }
         }
     }
 
     // If no pieces can take the king, return false to checkmate
-    if (pieceCount < 1)
+    if (attackingPieceCount < 1)
         return false;
     // If only one piece can take it, check if the player in Check can take that piece with a valid move. Return false if it can => not in Checkmate
-    else if (pieceCount == 1) {
+    else if (attackingPieceCount == 1) {
         for (int rank = RANK_8; rank >= RANK_1; rank--) {
             for (int file = FILE_A; file <= FILE_H; file++) {
                 ChessPiece *thisPiece = getChessPiece(rank, file);
@@ -312,6 +313,9 @@ void ChessBoard::printBoard() {
 }
 
 // ** PUBLIC SETTERS **
+// TODO: Don't let player move if they are in checkmate
+// TODO: Don't let player move anything other than a move that gets them out of check
+// TODO: Don't let players move if it is a stalemate
 
 bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     int fromRank, fromFile, toRank, toFile;

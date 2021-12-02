@@ -15,7 +15,7 @@ class ChessPiece {
 
    protected:
     /* This method checks if the submitted move is legal */
-    virtual bool isLegalMove(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
+    virtual bool isLegalMove(int toRank, int toFile, ChessBoard *cb);
 
    public:
     /* These variables hold the pieces position on the board */
