@@ -75,39 +75,55 @@ bool ChessBoard::isCheck() {
         return false;
 }
 
-bool ChessBoard::canInterpose() {
+bool ChessBoard::isCheckmate() {
+    int kingRank, kingFile;
+
+    getKingCoordinates(kingRank, kingFile);
+
+    if (canInterposeCheck() || canKingMoveOutOfCheck(kingRank, kingFile) || canCaptureAttackingPiece(kingRank, kingFile))
+        return false;
+
+    // If king cannot move, check can not be interposed and attacking piece cannot be taken return true to checkmate
+    return true;
+}
+
+bool ChessBoard::canInterposeCheck() {
     // Check if there is a valid move where this piece can no longer take the king
     for (int rankFrom = RANK_8; rankFrom >= RANK_1; rankFrom--) {
         for (int fileFrom = FILE_A; fileFrom <= FILE_H; fileFrom++) {
-            ChessPiece *thisPiece = getChessPiece(rankFrom, fileFrom);
             // Find each piece on the checked players team
-            if (thisPiece->getColour() == currentPlayer) {
-                // Find each of their valid moves on the board
-                for (int rankTo = RANK_8; rankTo >= RANK_1; rankTo--) {
-                    for (int fileTo = FILE_A; fileTo <= FILE_H; fileTo++) {
-                        if (thisPiece->isMoveValid(rankFrom, fileFrom, rankTo, fileTo, this)) {
-                            // If the move is valid, place the piece in that position temporarily
-                            ChessPiece *originalPiece = board[rankTo][fileTo];
-                            // Make the position it is moving from Free
-                            board[rankFrom][fileFrom] = new ChessPiece(NO_COLOUR, "Free", rankFrom, fileFrom);
-                            // Move the piece to the new position
-                            board[rankTo][fileTo] = thisPiece;
-                            // Check if the player is still in check with this move in place
-                            if (!isCheck()) {
-                                // Remove the new Piece from memory & restore the original board condition
-                                delete board[rankFrom][fileFrom];
-                                board[rankFrom][fileFrom] = thisPiece;
-                                board[rankTo][fileTo] = originalPiece;
-                                // If not a valid move anymore, return true to being interposed
-                                return true;
-                            } else {
-                                // Remove the new Piece from memory & restore the original board condition
-                                delete board[rankFrom][fileFrom];
-                                board[rankFrom][fileFrom] = thisPiece;
-                                board[rankTo][fileTo] = originalPiece;
-                            }
-                        }
-                    }
+            if (getChessPiece(rankFrom, fileFrom)->getColour() == currentPlayer && pieceCanBlockAttack(rankFrom, fileFrom))
+                return true;
+        }
+    }
+    return false;
+}
+
+bool ChessBoard::pieceCanBlockAttack(int rankFrom, int fileFrom) {
+    ChessPiece *thisPiece = getChessPiece(rankFrom, fileFrom);
+    for (int rankTo = RANK_8; rankTo >= RANK_1; rankTo--) {
+        for (int fileTo = FILE_A; fileTo <= FILE_H; fileTo++) {
+            // If the move is valid, check if the player is still in check
+            if (thisPiece->isMoveValid(rankFrom, fileFrom, rankTo, fileTo, this)) {
+                // Copy the original piece to restore later
+                ChessPiece *originalPiece = board[rankTo][fileTo];
+                // Make the position it is moving from Free
+                board[rankFrom][fileFrom] = new ChessPiece(NO_COLOUR, "Free", rankFrom, fileFrom);
+                // Move the piece to the new position
+                board[rankTo][fileTo] = thisPiece;
+                // Check if the player is still in check with this move in place
+                if (!isCheck()) {
+                    // Remove the new piece from memory & restore the original board condition
+                    delete board[rankFrom][fileFrom];
+                    board[rankFrom][fileFrom] = thisPiece;
+                    board[rankTo][fileTo] = originalPiece;
+                    // If player is not in check, return true to being interposed
+                    return true;
+                } else {
+                    // Remove the new piece from memory & restore the original board condition
+                    delete board[rankFrom][fileFrom];
+                    board[rankFrom][fileFrom] = thisPiece;
+                    board[rankTo][fileTo] = originalPiece;
                 }
             }
         }
@@ -115,17 +131,11 @@ bool ChessBoard::canInterpose() {
     return false;
 }
 
-bool ChessBoard::isCheckmate() {
-    int kingRank, kingFile, attackingPieceCount, attackingPieceRank, attackingPieceFile;
-
-    getKingCoordinates(kingRank, kingFile);
-    ChessPiece *king = getChessPiece(kingRank, kingFile);
-
-    // Test if the King can move somewhere it's not in check
+bool ChessBoard::canKingMoveOutOfCheck(int kingRank, int kingFile) {
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             // Check if it can move somewhere, then check if it is still in check in that move - repeat for all possible moves
-            if (king->isMoveValid(kingRank, kingFile, rank, file, this)) {
+            if (getChessPiece(kingRank, kingFile)->isMoveValid(kingRank, kingFile, rank, file, this)) {
                 // If the move is valid, place a temp king in that position
                 ChessPiece *originalPiece = board[rank][file];
                 board[rank][file] = new King(currentPlayer, "King", rank, file);
@@ -135,7 +145,7 @@ bool ChessBoard::isCheckmate() {
                     // If the king is no longer in check, restore the original free space and return false to being in Check
                     delete getChessPiece(rank, file);
                     board[rank][file] = originalPiece;
-                    return false;
+                    return true;
                 }
                 // If the king is still in check regardless of the space, restore the free space and move on with the other checks.
                 delete getChessPiece(rank, file);
@@ -143,12 +153,12 @@ bool ChessBoard::isCheckmate() {
             }
         }
     }
+    return false;
+}
 
-    // Check if a piece can make a move that interposes the check
-    if (canInterpose())
-        return false;
+bool ChessBoard::canCaptureAttackingPiece(int kingRank, int kingFile) {
+    int attackingPieceCount, attackingPieceRank, attackingPieceFile;
 
-    // Check how many pieces can take the King
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             ChessPiece *thisPiece = getChessPiece(rank, file);
@@ -162,20 +172,18 @@ bool ChessBoard::isCheckmate() {
 
     // If no pieces can take the king, return false to checkmate
     if (attackingPieceCount < 1)
-        return false;
+        return true;
     // If only one piece can take it, check if the player in Check can take that piece with a valid move. Return false if it can => not in Checkmate
     else if (attackingPieceCount == 1) {
         for (int rank = RANK_8; rank >= RANK_1; rank--) {
             for (int file = FILE_A; file <= FILE_H; file++) {
                 ChessPiece *thisPiece = getChessPiece(rank, file);
                 if (thisPiece->getColour() == currentPlayer && thisPiece->isMoveValid(rank, file, attackingPieceRank, attackingPieceFile, this))
-                    return false;
+                    return true;
             }
         }
     }
-
-    // If king cannot move, check can not be interposed and attacking piece cannot be taken return true to checkmate
-    return true;
+    return false;
 }
 
 bool ChessBoard::isStalemate() {
@@ -183,7 +191,7 @@ bool ChessBoard::isStalemate() {
 
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
-            // Check if any piece has a valid move that doesn't result in the King being checked
+            // Check if any piece has a valid move
             if (getChessPiece(rank, file)->getColour() == currentPlayer && getChessPiece(rank, file)->hasValidMove(rankTo, fileTo, this)) {
                 // Swap the pieces temporarily so isCheck() considers the move
                 ChessPiece *originalPiece = board[rankTo][fileTo];
@@ -370,9 +378,9 @@ void ChessBoard::printBoard() {
 }
 
 // ** PUBLIC SETTERS **
-// TODO: Don't let player move anything other than a move that gets them out of check
 
 bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
+    // Process input move
     int fromRank, fromFile, toRank, toFile;
     parseInput(moveFrom, moveTo, fromRank, fromFile, toRank, toFile);
 
@@ -380,6 +388,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     ChessPiece *pieceToMove = getChessPiece(fromRank, fromFile);
     ChessPiece *targetPosition = getChessPiece(toRank, toFile);
 
+    // Do not allow move is end game conditions are true
     if (checkmate == true || stalemate == true) {
         std::cout << "Please reset the board to start a new game, this game has ended" << std::endl;
         return false;
@@ -404,6 +413,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     printMove(targetPosition, fromRank, fromFile, moveFrom, moveTo);
 
     // Move the piece, update its position and set the old location to Free
+    // ? Make Function ?
     board[toRank][toFile] = pieceToMove;
     pieceToMove->updatePosition(toRank, toFile);
     board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free", fromRank, fromFile);
@@ -411,9 +421,10 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     // If a move resulted in check or checkmate for current player, reverse it and say it is not valid
     if (isCheck() || isCheckmate()) {
         if (isWhiteTurn())
-            std::cout << "White's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << std::endl;
+            std::cout << "White's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << " because Black will still be in check" << std::endl;
         else
-            std::cout << "Blacks's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << std::endl;
+            std::cout << "Blacks's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << " because White will still be in check" << std::endl;
+        // ? Make Function ?
         // Delete the free piece created
         delete getChessPiece(fromRank, fromFile);
         // Put the original piece back in its position
@@ -425,10 +436,13 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
         // return false to the move being submitted
         return false;
     }
-    // If the move was valid, delete the target position ptr as its now gone
+
+    // If the move was valid, delete the target position ptr
     delete targetPosition;
-    // Change players turn here with a new func
+
+    // Swap players turn
     swapTurn();
+
     // Check for end of turn game conditions for opposite player (check, checkmate, stalemate)
     checkGameConditions();
 

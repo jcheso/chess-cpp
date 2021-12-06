@@ -21,10 +21,16 @@ class ChessBoard {
     bool pieceCanBeTaken(int rankToCheck, int fileToCheck);
     /* This method checks if current player is in Check */
     bool isCheck();
-    /* This method checks if a piece can interpose the check */
-    bool canInterpose();
     /* This method checks if current player is in Checkmate */
     bool isCheckmate();
+    /* This method checks if a piece can interpose the check */
+    bool canInterposeCheck();
+    /* This method checks if a piece that can block an attack */
+    bool pieceCanBlockAttack(int rankFrom, int fileFrom);
+    /* This method checks if the King can move out of the check position */
+    bool canKingMoveOutOfCheck(int kingRank, int kingFile);
+    /* This method checks if the attacking piece causing check can be captured */
+    bool canCaptureAttackingPiece(int kingRank, int kingFile);
     /* This method checks if there is a Stalemate */
     bool isStalemate();
     /* This method checks for check, checkmate, stalemate */
