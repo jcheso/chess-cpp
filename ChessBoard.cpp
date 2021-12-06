@@ -78,7 +78,6 @@ bool ChessBoard::isCheckmate() {
     getKingCoordinates(kingRank, kingFile);
     if (canInterposeCheck() || canKingMoveOutOfCheck(kingRank, kingFile) || canCaptureAttackingPiece(kingRank, kingFile))
         return false;
-
     return true;
 }
 
@@ -161,11 +160,8 @@ bool ChessBoard::canCaptureAttackingPiece(int kingRank, int kingFile) {
             }
         }
     }
-    // If no pieces can take the king, return false to checkmate
-    if (attackingPieceCount < 1)
-        return true;
-    // If only one piece can take it, check if the player in Check can take that piece with a valid move. Return false if it can => not in Checkmate
-    else if (attackingPieceCount == 1) {
+    // If only one piece can take it, check if the player in Check can take that piece with a valid move.
+    if (attackingPieceCount == 1) {
         for (int rank = RANK_8; rank >= RANK_1; rank--) {
             for (int file = FILE_A; file <= FILE_H; file++) {
                 ChessPiece *thisPiece = getChessPiece(rank, file);
@@ -182,21 +178,20 @@ bool ChessBoard::isStalemate() {
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             // Check if any piece has a valid move
-            if (getChessPiece(rank, file)->getColour() == currentPlayer && getChessPiece(rank, file)->hasValidMove(rankTo, fileTo, this)) {
+            ChessPiece *thisPiece = getChessPiece(rank, file);
+            if (thisPiece->getColour() == currentPlayer && thisPiece->hasValidMove(rankTo, fileTo, this)) {
                 // Swap the pieces temporarily so isCheck() considers the move
                 ChessPiece *originalPiece = board[rankTo][fileTo];
                 ChessPiece *pieceToMove = board[rank][file];
                 board[rankTo][fileTo] = pieceToMove;
                 board[rank][file] = new ChessPiece(NO_COLOUR, "Free", rank, file);
-                // If moving the piece results in a check
+                // If moving the piece results in a check return true to stalemate, restore original condition either way
                 if (isCheck()) {
-                    // Delete the temp piece from memory and restore original state, return stalemate as in check after move
                     delete getChessPiece(rank, file);
                     board[rankTo][fileTo] = originalPiece;
                     board[rank][file] = pieceToMove;
                     return true;
                 } else {
-                    // Delete the temp piece from memory and restore original state, return no stalemate as not in check after move
                     delete getChessPiece(rank, file);
                     board[rankTo][fileTo] = originalPiece;
                     board[rank][file] = pieceToMove;
@@ -208,7 +203,7 @@ bool ChessBoard::isStalemate() {
     return true;
 }
 
-void ChessBoard::checkGameConditions() {
+void ChessBoard::checkGameStatus() {
     if (isWhiteTurn() && isCheck()) {
         if (isCheckmate()) {
             std::cout << "White is in checkmate" << std::endl;
@@ -235,7 +230,6 @@ void ChessBoard::checkGameConditions() {
 }
 
 bool ChessBoard::isPlayersTurn(ChessPiece *pieceToMove) {
-    // Check if the piece belongs to the player who's turn it is.
     if (isWhiteTurn() && pieceToMove->getColour() == BLACK) {
         std::cout << "It is not Black's turn to move!" << std::endl;
         return false;
@@ -243,12 +237,11 @@ bool ChessBoard::isPlayersTurn(ChessPiece *pieceToMove) {
     if (!isWhiteTurn() && pieceToMove->getColour() == WHITE) {
         std::cout << "It is not White's turn to move!" << std::endl;
         return false;
-    } else
-        return true;
+    }
+    return true;
 }
 
 bool ChessBoard::moveNotValid(ChessPiece *pieceToMove, std::string moveFrom, std::string moveTo, int toRank, int toFile) {
-    // Do not allow move is end game conditions are true
     if (checkmate == true || stalemate == true) {
         std::cout << "Please reset the board to start a new game, this game has ended" << std::endl;
         return true;
@@ -343,7 +336,6 @@ bool ChessBoard::causingSelfCheck(int fromRank, int fromFile, int toRank, int to
             std::cout << "White's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << " because Black will still be in check" << std::endl;
         else
             std::cout << "Blacks's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << " because White will still be in check" << std::endl;
-        // Delete the free piece created and reverse move on board
         delete getChessPiece(fromRank, fromFile);
         board[fromRank][fromFile] = pieceToMove;
         pieceToMove->updatePosition(fromRank, fromFile);
@@ -392,7 +384,6 @@ void ChessBoard::printBoard() {
     std::cout << "|   A  |  |  B   |  |  C   |  |  D   |  |  E   |  |  F   |  |  G   |  |  H   |" << std::endl;
     std::cout
         << "|----------------------------------------------------------------------------------|" << std::endl;
-    // std::cout << std::setw(2) << " | "
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         std::cout << std::setw(3);
         std::cout << "|  " << rank + 1 << " ";
@@ -419,6 +410,7 @@ void ChessBoard::printBoard() {
 bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     int fromRank, fromFile, toRank, toFile;
     parseInput(moveFrom, moveTo, fromRank, fromFile, toRank, toFile);
+
     ChessPiece *pieceToMove = getChessPiece(fromRank, fromFile);
     ChessPiece *targetPosition = getChessPiece(toRank, toFile);
 
@@ -427,10 +419,9 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     else {
         printMove(targetPosition, pieceToMove, moveFrom, moveTo);
         swapTurn();
-        checkGameConditions();
+        checkGameStatus();
         return true;
     }
-
     return false;
 }
 

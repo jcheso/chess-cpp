@@ -35,7 +35,7 @@ class ChessBoard {
     /* This method checks if there is a Stalemate */
     bool isStalemate();
     /* This method checks for check, checkmate, stalemate */
-    void checkGameConditions();
+    void checkGameStatus();
     /* This method checks if the player is moving it's own piece */
     bool isPlayersTurn(ChessPiece *pieceToMove);
     /* This method validates the move, ensuring the game hasn't ended, that it's the players turn,

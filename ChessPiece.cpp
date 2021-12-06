@@ -9,7 +9,6 @@
 // ** Constructor, Destructor **
 ChessPiece::ChessPiece(int colour, std::string name, int rank, int file) : colour(colour), name(name), currentRank(rank), currentFile(file) {}
 ChessPiece::~ChessPiece() {}
-bool ChessPiece::isLegalMove(int toRank, int toFile, ChessBoard *cb) { return false; }
 
 // ** SETTERS **
 
@@ -20,11 +19,12 @@ void ChessPiece::updatePosition(int rank, int file) {
 
 // ** GETTERS **
 
+bool ChessPiece::isLegalMove(int toRank, int toFile, ChessBoard *cb) { return false; }
+
 int ChessPiece::getColour() { return colour; }
 
 std::string ChessPiece::getName() { return name; }
 
-// TODO: Store these as ints with Enum
 std::vector<std::string> ChessPiece::getMoveDirection(int toRank, int toFile) {
     std::vector<std::string> pathDetails;
     std::string direction;
@@ -58,7 +58,6 @@ std::vector<std::string> ChessPiece::getMoveDirection(int toRank, int toFile) {
     pathDetails.push_back(direction);
     pathDetails.push_back(fileDirection);
     pathDetails.push_back(rankDirection);
-
     return pathDetails;
 }
 
@@ -152,7 +151,6 @@ bool ChessPiece::isDiagonalPathClear(int toRank, int toFile, std::vector<std::st
         for (int filePath = currentFile + 1; filePath < toFile && rankPath < toRank; filePath++) {
             if (!cb->getChessPiece(rankPath, filePath)->isPositionFree())
                 return false;
-
             rankPath++;
         }
     } else if (rankDirection == "Down" && fileDirection == "Left") {
@@ -160,7 +158,6 @@ bool ChessPiece::isDiagonalPathClear(int toRank, int toFile, std::vector<std::st
         for (int filePath = currentFile - 1; filePath > toFile && rankPath > toRank; filePath--) {
             if (!cb->getChessPiece(rankPath, filePath)->isPositionFree())
                 return false;
-
             rankPath--;
         }
     } else if (rankDirection == "Down" && fileDirection == "Right") {
@@ -168,7 +165,6 @@ bool ChessPiece::isDiagonalPathClear(int toRank, int toFile, std::vector<std::st
         for (int filePath = currentFile + 1; filePath < toFile && rankPath > toRank; filePath++) {
             if (!cb->getChessPiece(rankPath, filePath)->isPositionFree())
                 return false;
-
             rankPath--;
         }
     } else if (rankDirection == "Up" && fileDirection == "Left") {
@@ -176,7 +172,6 @@ bool ChessPiece::isDiagonalPathClear(int toRank, int toFile, std::vector<std::st
         for (int filePath = currentFile - 1; filePath > toFile && rankPath < toRank; filePath--) {
             if (!cb->getChessPiece(rankPath, filePath)->isPositionFree())
                 return false;
-
             rankPath++;
         }
     }
