@@ -213,17 +213,28 @@ bool ChessBoard::isStalemate() {
 
 void ChessBoard::checkGameConditions() {
     if (isWhiteTurn() && isCheck()) {
-        if (isCheckmate())
+        if (isCheckmate()) {
             std::cout << "White is in checkmate" << std::endl;
-        else
+            checkmate = true;
+        } else {
             std::cout << "White is in check" << std::endl;
+            whiteInCheck = true;
+        }
     } else if (!isWhiteTurn() && isCheck()) {
-        if (isCheckmate())
+        if (isCheckmate()) {
             std::cout << "Black is in checkmate" << std::endl;
-        else
+            checkmate = true;
+        } else {
             std::cout << "Black is in check" << std::endl;
-    } else if (!isCheck() && isStalemate())
+            blackInCheck = true;
+        }
+    } else if (!isCheck() && isStalemate()) {
         std::cout << "A stalemate has occurred" << std::endl;
+        stalemate = true;
+    } else {
+        whiteInCheck = false;
+        blackInCheck = false;
+    }
 }
 
 bool ChessBoard::isPlayersTurn(ChessPiece *pieceToMove) {
@@ -277,14 +288,24 @@ void ChessBoard::setBoard() {
     std::cout << "A new chess game is started!" << std::endl;
 
     // Set the starting turns
-    currentPlayer = WHITE;
-    oppositionPlayer = BLACK;
+    currentPlayer = WHITE, oppositionPlayer = BLACK;
+    whiteInCheck = false, blackInCheck = false, checkmate = false, stalemate = false;
 }
 
 void ChessBoard::clearBoard() {
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++)
             delete board[rank][file];
+    }
+}
+
+void ChessBoard::swapTurn() {
+    if (isWhiteTurn()) {
+        currentPlayer = BLACK;
+        oppositionPlayer = WHITE;
+    } else {
+        currentPlayer = WHITE;
+        oppositionPlayer = BLACK;
     }
 }
 
@@ -298,8 +319,6 @@ void ChessBoard::printMove(ChessPiece *targetPosition, int fromRank, int fromFil
             std::cout << " taking Black's " << targetPosition->getName() << endl;
         else
             std::cout << "\n";
-        currentPlayer = BLACK;
-        oppositionPlayer = WHITE;
     } else {
         std::cout << "Black's " << getChessPiece(fromRank, fromFile)->getName() << " moves from "
                   << moveFrom << " to " << moveTo;
@@ -307,8 +326,6 @@ void ChessBoard::printMove(ChessPiece *targetPosition, int fromRank, int fromFil
             std::cout << " taking White's " << targetPosition->getName() << endl;
         else
             std::cout << "\n";
-        currentPlayer = WHITE;
-        oppositionPlayer = BLACK;
     }
 }
 
@@ -353,9 +370,7 @@ void ChessBoard::printBoard() {
 }
 
 // ** PUBLIC SETTERS **
-// TODO: Don't let player move if they are in checkmate
 // TODO: Don't let player move anything other than a move that gets them out of check
-// TODO: Don't let players move if it is a stalemate
 
 bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     int fromRank, fromFile, toRank, toFile;
@@ -364,6 +379,11 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     // Get the pieces at each position
     ChessPiece *pieceToMove = getChessPiece(fromRank, fromFile);
     ChessPiece *targetPosition = getChessPiece(toRank, toFile);
+
+    if (checkmate == true || stalemate == true) {
+        std::cout << "Please reset the board to start a new game, this game has ended" << std::endl;
+        return false;
+    }
 
     // Check if there is a piece at the position
     if (pieceToMove->isPositionFree()) {
@@ -384,12 +404,32 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     printMove(targetPosition, fromRank, fromFile, moveFrom, moveTo);
 
     // Move the piece, update its position and set the old location to Free
-    delete targetPosition;
     board[toRank][toFile] = pieceToMove;
     pieceToMove->updatePosition(toRank, toFile);
     board[fromRank][fromFile] = new ChessPiece(NO_COLOUR, "Free", fromRank, fromFile);
 
-    // Check for end of turn game conditions (check, checkmate, stalemate)
+    // If a move resulted in check or checkmate for current player, reverse it and say it is not valid
+    if (isCheck() || isCheckmate()) {
+        if (isWhiteTurn())
+            std::cout << "White's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << std::endl;
+        else
+            std::cout << "Blacks's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << std::endl;
+        // Delete the free piece created
+        delete getChessPiece(fromRank, toRank);
+        // Put the original piece back in its position
+        board[fromRank][fromFile] = pieceToMove;
+        // Update that piece to reflect its position
+        pieceToMove->updatePosition(fromRank, fromFile);
+        // Set the target position back
+        board[toRank][toFile] = targetPosition;
+        // return false to the move being submitted
+        return false;
+    }
+    // If the move was valid, delete the target position ptr as its now gone
+    // delete targetPosition;
+    // Change players turn here with a new func
+    swapTurn();
+    // Check for end of turn game conditions for opposite player (check, checkmate, stalemate)
     checkGameConditions();
 
     return true;

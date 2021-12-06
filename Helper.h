@@ -24,9 +24,9 @@ enum RankEnum {
 };
 
 enum PieceColours {
+    NO_COLOUR,
     BLACK,
     WHITE,
-    NO_COLOUR,
 };
 
 #endif

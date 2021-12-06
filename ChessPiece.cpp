@@ -79,6 +79,7 @@ bool ChessPiece::hasValidMove(int &rankTo, int &fileTo, ChessBoard *cb) {
     return false;
 }
 
+// TODO Need to make sure the player hasn't put themselves in check or checkmate?
 bool ChessPiece::isMoveValid(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb) {
     ChessPiece *targetPosition = cb->getChessPiece(toRank, toFile);
     // If the position is the opposite player or is empty (i.e. not the players piece), check if the move is valid for the specific piece

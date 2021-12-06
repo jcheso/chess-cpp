@@ -1,14 +1,11 @@
 all: chess
 
-chess: ChessMain.o Helper.o ChessPiece.o ChessBoard.o Bishop.o King.o Knight.o Pawn.o Queen.o Rook.o
-	g++ -g ChessMain.o Helper.o ChessPiece.o ChessBoard.o Bishop.o King.o Knight.o Pawn.o Queen.o Rook.o -o chess
+chess: ChessMain.o ChessPiece.o ChessBoard.o Bishop.o King.o Knight.o Pawn.o Queen.o Rook.o
+	g++ -g ChessMain.o ChessPiece.o ChessBoard.o Bishop.o King.o Knight.o Pawn.o Queen.o Rook.o -o chess
 
-ChessMain.o: ChessMain.cpp
+ChessMain.o: ChessMain.cpp  Helper.h
 	g++ -Wall -g -c ChessMain.cpp
 
-Helper.o: Helper.cpp Helper.h
-	g++ -Wall -g -c Helper.cpp Helper.h
-	
 ChessPiece.o: ChessPiece.cpp ChessPiece.h
 	g++ -Wall -g -c ChessPiece.cpp ChessPiece.h
 

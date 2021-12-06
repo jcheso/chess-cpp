@@ -68,57 +68,58 @@ int main() {
     cout << '\n';
 
     cb.submitMove("E2", "E6");
-    cb.submitMove("F7", "E6");
-    cout << '\n';
-
-    cb.submitMove("D3", "G6");
-    cout << '\n';
-
     cb.printBoard();
-
-    cout << "========================\n";
-    cout << "Testing for a Stalemate\n";
-    cout << "========================\n\n";
-
-    cb.resetBoard();
-
-    cb.submitMove("C2", "C4");
-
-    cb.submitMove("H7", "H5");
-
-    cb.submitMove("H2", "H4");
-
     cb.submitMove("A7", "A5");
 
-    cb.submitMove("D1", "A4");
+    // cb.submitMove("F7", "E6");
+    // cout << '\n';
 
-    cb.submitMove("A8", "A6");
+    // cb.submitMove("D3", "G6");
+    // cout << '\n';
 
-    cb.submitMove("A4", "A5");
+    // cout << "========================\n";
+    // cout << "Testing for a Stalemate\n";
+    // cout << "========================\n\n";
 
-    cb.submitMove("A6", "H6");
+    // cb.resetBoard();
 
-    cb.submitMove("A5", "C7");
+    // cb.submitMove("C2", "C4");
 
-    cb.submitMove("F7", "F6");
+    // cb.submitMove("H7", "H5");
 
-    cb.submitMove("C7", "D7");
+    // cb.submitMove("H2", "H4");
 
-    cb.submitMove("E8", "F7");
+    // cb.submitMove("A7", "A5");
 
-    cb.submitMove("D7", "B7");
+    // cb.submitMove("D1", "A4");
 
-    cb.submitMove("D8", "D3");
+    // cb.submitMove("A8", "A6");
 
-    cb.submitMove("B7", "B8");
+    // cb.submitMove("A4", "A5");
 
-    cb.submitMove("D3", "H7");
+    // cb.submitMove("A6", "H6");
 
-    cb.submitMove("B8", "C8");
+    // cb.submitMove("A5", "C7");
 
-    cb.submitMove("F7", "G6");
+    // cb.submitMove("F7", "F6");
 
-    cb.submitMove("C8", "E6");
+    // cb.submitMove("C7", "D7");
+
+    // cb.submitMove("E8", "F7");
+
+    // cb.submitMove("D7", "B7");
+
+    // cb.submitMove("D8", "D3");
+
+    // cb.submitMove("B7", "B8");
+
+    // cb.submitMove("D3", "H7");
+
+    // cb.submitMove("B8", "C8");
+
+    // cb.submitMove("F7", "G6");
+
+    // cb.submitMove("C8", "E6");
 
     // cb.resetBoard();
     // // ** PAWN UNIT TESTS **

@@ -40,7 +40,8 @@ class ChessBoard {
     void clearBoard();
     /* This method handles the required input validation and move validation */
     bool parseInput(std::string moveFrom, std::string moveTo, int &fromRank, int &fromFile, int &toRank, int &toFile);
-
+    /* This method swaps the players turn */
+    void swapTurn();
     // ** HELPERS **
 
     /* This method prints the move to the console */
@@ -51,8 +52,8 @@ class ChessBoard {
     ~ChessBoard();
 
     // ** VARIABLES **
-    int currentPlayer;
-    int oppositionPlayer;
+    int currentPlayer, oppositionPlayer;
+    bool whiteInCheck, blackInCheck, checkmate, stalemate;
 
     // ** GETTERS **
 
