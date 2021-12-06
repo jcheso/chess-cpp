@@ -144,6 +144,10 @@ bool ChessBoard::isCheckmate() {
         }
     }
 
+    // Check if a piece can make a move that interposes the check
+    if (canInterpose())
+        return false;
+
     // Check how many pieces can take the King
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
@@ -155,10 +159,6 @@ bool ChessBoard::isCheckmate() {
             }
         }
     }
-
-    // Check if a piece can make a move that interposes the check
-    if (canInterpose(attackingPieceRank, attackingPieceFile, kingRank, kingFile))
-        return false;
 
     // If no pieces can take the king, return false to checkmate
     if (attackingPieceCount < 1)
