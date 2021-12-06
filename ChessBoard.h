@@ -10,6 +10,7 @@ class ChessBoard {
    private:
     // ** VARIABLES **
     ChessPiece *board[8][8];
+    bool whiteInCheck, blackInCheck, checkmate, stalemate;
 
     // ** GETTERS **
 
@@ -37,6 +38,9 @@ class ChessBoard {
     void checkGameConditions();
     /* This method checks if the player is moving it's own piece */
     bool isPlayersTurn(ChessPiece *pieceToMove);
+    /* This method validates the input, ensuring the game hasn't ended,
+    that it's the players turn and they are selecting their own piece. */
+    bool inputIsValid(ChessPiece *pieceToMove, std::string fromFrom, std::string moveTo, int fromRank, int fromFile, int toRank, int toFile);
 
     // ** SETTERS **
 
@@ -48,8 +52,9 @@ class ChessBoard {
     bool parseInput(std::string moveFrom, std::string moveTo, int &fromRank, int &fromFile, int &toRank, int &toFile);
     /* This method swaps the players turn */
     void swapTurn();
+    /* This method makes sure that the player is not checking themself and sets the ChessBoard if the move is valid */
+    bool notCausingSelfCheck(int fromRank, int fromFile, int toRank, int toFile, std::string moveTo);
     // ** HELPERS **
-
     /* This method prints the move to the console */
     void printMove(ChessPiece *targetPosition, int fromRank, int fromFile, std::string moveFrom, std::string moveTo);
 
@@ -59,7 +64,6 @@ class ChessBoard {
 
     // ** VARIABLES **
     int currentPlayer, oppositionPlayer;
-    bool whiteInCheck, blackInCheck, checkmate, stalemate;
 
     // ** GETTERS **
 
