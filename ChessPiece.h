@@ -43,7 +43,7 @@ class ChessPiece {
     /* This method checks if the piece has a valid move available on the board */
     bool hasValidMove(int &toRank, int &toFile, ChessBoard *cb);
     /* This method checks if the piece can make a the specific move on the board */
-    bool isMoveValid(int fromRank, int fromFile, int toRank, int toFile, ChessBoard *cb);
+    bool isMoveValid(int toRank, int toFile, ChessBoard *cb);
     /* This method checks if the piece has a clear path to the desired position on the board */
     bool isPathClear(int toRank, int toFile, ChessBoard *cb);
     /* This method checks if a horizontal path is clear to the desired position on the board */

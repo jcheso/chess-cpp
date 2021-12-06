@@ -42,7 +42,7 @@ bool ChessBoard::pieceCanBeTaken(int rankToCheck, int fileToCheck) {
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             ChessPiece *thisPiece = getChessPiece(rank, file);
-            if ((thisPiece->getColour() == oppositionPlayer) && (thisPiece->isMoveValid(rank, file, rankToCheck, fileToCheck, this)))
+            if ((thisPiece->getColour() == oppositionPlayer) && (thisPiece->isMoveValid(rankToCheck, fileToCheck, this)))
                 return true;
         }
     }
@@ -103,7 +103,7 @@ bool ChessBoard::pieceCanBlockAttack(int rankFrom, int fileFrom) {
     for (int rankTo = RANK_8; rankTo >= RANK_1; rankTo--) {
         for (int fileTo = FILE_A; fileTo <= FILE_H; fileTo++) {
             // If the move is valid, check if the player is still in check
-            if (thisPiece->isMoveValid(rankFrom, fileFrom, rankTo, fileTo, this)) {
+            if (thisPiece->isMoveValid(rankTo, fileTo, this)) {
                 // Copy the original piece to restore later
                 ChessPiece *originalPiece = board[rankTo][fileTo];
                 // Make the position it is moving from Free
@@ -134,7 +134,7 @@ bool ChessBoard::canKingMoveOutOfCheck(int kingRank, int kingFile) {
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             // Check if it can move somewhere, then check if it is still in check in that move - repeat for all possible moves
-            if (getChessPiece(kingRank, kingFile)->isMoveValid(kingRank, kingFile, rank, file, this)) {
+            if (getChessPiece(kingRank, kingFile)->isMoveValid(rank, file, this)) {
                 // If the move is valid, place a temp king in that position
                 ChessPiece *originalPiece = board[rank][file];
                 board[rank][file] = new King(currentPlayer, "King", rank, file);
@@ -160,7 +160,7 @@ bool ChessBoard::canCaptureAttackingPiece(int kingRank, int kingFile) {
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             ChessPiece *thisPiece = getChessPiece(rank, file);
-            if (thisPiece->getColour() == oppositionPlayer && thisPiece->isMoveValid(rank, file, kingRank, kingFile, this)) {
+            if (thisPiece->getColour() == oppositionPlayer && thisPiece->isMoveValid(kingRank, kingFile, this)) {
                 attackingPieceRank = rank;
                 attackingPieceFile = file;
                 attackingPieceCount++;
@@ -175,7 +175,7 @@ bool ChessBoard::canCaptureAttackingPiece(int kingRank, int kingFile) {
         for (int rank = RANK_8; rank >= RANK_1; rank--) {
             for (int file = FILE_A; file <= FILE_H; file++) {
                 ChessPiece *thisPiece = getChessPiece(rank, file);
-                if (thisPiece->getColour() == currentPlayer && thisPiece->isMoveValid(rank, file, attackingPieceRank, attackingPieceFile, this))
+                if (thisPiece->getColour() == currentPlayer && thisPiece->isMoveValid(attackingPieceRank, attackingPieceFile, this))
                     return true;
             }
         }
@@ -389,7 +389,7 @@ bool ChessBoard::inputIsValid(ChessPiece *pieceToMove, std::string moveFrom, std
     }
 
     // If it is not the players turn or the move isn't valid, print to console that move is not valid
-    if (!isPlayersTurn(pieceToMove) || !pieceToMove->isMoveValid(fromRank, fromFile, toRank, toFile, this)) {
+    if (!isPlayersTurn(pieceToMove) || !pieceToMove->isMoveValid(toRank, toFile, this)) {
         if (isWhiteTurn())
             std::cout << "White's " << pieceToMove->getName() << " cannot move to " << moveTo << std::endl;
         else
