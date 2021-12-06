@@ -415,7 +415,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
         else
             std::cout << "Blacks's " << getChessPiece(toRank, toFile)->getName() << " cannot move to " << moveTo << std::endl;
         // Delete the free piece created
-        delete getChessPiece(fromRank, toRank);
+        delete getChessPiece(fromRank, fromFile);
         // Put the original piece back in its position
         board[fromRank][fromFile] = pieceToMove;
         // Update that piece to reflect its position
@@ -426,7 +426,7 @@ bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
         return false;
     }
     // If the move was valid, delete the target position ptr as its now gone
-    // delete targetPosition;
+    delete targetPosition;
     // Change players turn here with a new func
     swapTurn();
     // Check for end of turn game conditions for opposite player (check, checkmate, stalemate)
