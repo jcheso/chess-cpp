@@ -75,7 +75,46 @@ bool ChessBoard::isCheck() {
         return false;
 }
 
-// !! WHY IS THIS TRIGGERING ON LINUX BUT NOT WINDOWS
+bool ChessBoard::canInterpose() {
+    // Check if there is a valid move where this piece can no longer take the king
+    for (int rankFrom = RANK_8; rankFrom >= RANK_1; rankFrom--) {
+        for (int fileFrom = FILE_A; fileFrom <= FILE_H; fileFrom++) {
+            ChessPiece *thisPiece = getChessPiece(rankFrom, fileFrom);
+            // Find each piece on the checked players team
+            if (thisPiece->getColour() == currentPlayer) {
+                // Find each of their valid moves on the board
+                for (int rankTo = RANK_8; rankTo >= RANK_1; rankTo--) {
+                    for (int fileTo = FILE_A; fileTo <= FILE_H; fileTo++) {
+                        if (thisPiece->isMoveValid(rankFrom, fileFrom, rankTo, fileTo, this)) {
+                            // If the move is valid, place the piece in that position temporarily
+                            ChessPiece *originalPiece = board[rankTo][fileTo];
+                            // Make the position it is moving from Free
+                            board[rankFrom][fileFrom] = new ChessPiece(NO_COLOUR, "Free", rankFrom, fileFrom);
+                            // Move the piece to the new position
+                            board[rankTo][fileTo] = thisPiece;
+                            // Check if the player is still in check with this move in place
+                            if (!isCheck()) {
+                                // Remove the new Piece from memory & restore the original board condition
+                                delete board[rankFrom][fileFrom];
+                                board[rankFrom][fileFrom] = thisPiece;
+                                board[rankTo][fileTo] = originalPiece;
+                                // If not a valid move anymore, return true to being interposed
+                                return true;
+                            } else {
+                                // Remove the new Piece from memory & restore the original board condition
+                                delete board[rankFrom][fileFrom];
+                                board[rankFrom][fileFrom] = thisPiece;
+                                board[rankTo][fileTo] = originalPiece;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
 bool ChessBoard::isCheckmate() {
     int kingRank, kingFile, attackingPieceCount, attackingPieceRank, attackingPieceFile;
 
@@ -105,21 +144,21 @@ bool ChessBoard::isCheckmate() {
         }
     }
 
-    // Check if a piece can make a move that interposes the check
-    if (!moveResultsInCheck())
-        return false;
-
     // Check how many pieces can take the King
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
         for (int file = FILE_A; file <= FILE_H; file++) {
             ChessPiece *thisPiece = getChessPiece(rank, file);
             if (thisPiece->getColour() == oppositionPlayer && thisPiece->isMoveValid(rank, file, kingRank, kingFile, this)) {
-                attackingPieceFile = file;
                 attackingPieceRank = rank;
+                attackingPieceFile = file;
                 attackingPieceCount++;
             }
         }
     }
+
+    // Check if a piece can make a move that interposes the check
+    if (canInterpose(attackingPieceRank, attackingPieceFile, kingRank, kingFile))
+        return false;
 
     // If no pieces can take the king, return false to checkmate
     if (attackingPieceCount < 1)
@@ -134,11 +173,12 @@ bool ChessBoard::isCheckmate() {
             }
         }
     }
+
     // If king cannot move, check can not be interposed and attacking piece cannot be taken return true to checkmate
     return true;
 }
 
-bool ChessBoard::moveResultsInCheck() {
+bool ChessBoard::isStalemate() {
     int rankTo, fileTo;
 
     for (int rank = RANK_8; rank >= RANK_1; rank--) {
@@ -182,7 +222,7 @@ void ChessBoard::checkGameConditions() {
             std::cout << "Black is in checkmate" << std::endl;
         else
             std::cout << "Black is in check" << std::endl;
-    } else if (!isCheck() && moveResultsInCheck())
+    } else if (!isCheck() && isStalemate())
         std::cout << "A stalemate has occurred" << std::endl;
 }
 

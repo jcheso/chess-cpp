@@ -21,15 +21,15 @@ class ChessBoard {
     bool pieceCanBeTaken(int rankToCheck, int fileToCheck);
     /* This method checks if current player is in Check */
     bool isCheck();
+    /* This method checks if a piece can interpose the check */
+    bool canInterpose();
     /* This method checks if current player is in Checkmate */
     bool isCheckmate();
     /* This method checks if there is a Stalemate */
     bool isStalemate();
-    /* This method checks if the player can make a move that doesn't result in check */
-    bool moveResultsInCheck();
-    /* This methods checks for check, checkmate, stalemate */
+    /* This method checks for check, checkmate, stalemate */
     void checkGameConditions();
-    /* This methods checks if the player is moving it's own piece */
+    /* This method checks if the player is moving it's own piece */
     bool isPlayersTurn(ChessPiece *pieceToMove);
 
     // ** SETTERS **
