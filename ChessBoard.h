@@ -38,9 +38,9 @@ class ChessBoard {
     void checkGameConditions();
     /* This method checks if the player is moving it's own piece */
     bool isPlayersTurn(ChessPiece *pieceToMove);
-    /* This method validates the input, ensuring the game hasn't ended,
-    that it's the players turn and they are selecting their own piece. */
-    bool inputIsValid(ChessPiece *pieceToMove, std::string fromFrom, std::string moveTo, int fromRank, int fromFile, int toRank, int toFile);
+    /* This method validates the move, ensuring the game hasn't ended, that it's the players turn,
+    that they are selecting their own piece, and that the piece is making a valid move */
+    bool moveNotValid(ChessPiece *pieceToMove, std::string moveFrom, std::string moveTo, int toRank, int toFile);
 
     // ** SETTERS **
 
@@ -53,10 +53,10 @@ class ChessBoard {
     /* This method swaps the players turn */
     void swapTurn();
     /* This method makes sure that the player is not checking themself and sets the ChessBoard if the move is valid */
-    bool notCausingSelfCheck(int fromRank, int fromFile, int toRank, int toFile, std::string moveTo);
+    bool causingSelfCheck(int fromRank, int fromFile, int toRank, int toFile, std::string moveTo);
     // ** HELPERS **
     /* This method prints the move to the console */
-    void printMove(ChessPiece *targetPosition, int fromRank, int fromFile, std::string moveFrom, std::string moveTo);
+    void printMove(ChessPiece *targetPosition, ChessPiece *originalPosition, std::string moveFrom, std::string moveTo);
 
    public:
     ChessBoard();
