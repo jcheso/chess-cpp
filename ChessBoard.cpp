@@ -370,47 +370,11 @@ void ChessBoard::printMove(ChessPiece *targetPosition, ChessPiece *pieceToMove, 
 
 ChessPiece *ChessBoard::getChessPiece(int rank, int file) { return board[rank][file]; }
 
-void ChessBoard::printBoard() {
-    std::cout
-        << "\n"
-        << "|----------------------------------------------------------------------------------|" << std::endl;
-    if (isWhiteTurn())
-        std::cout << std::setw(20) << "|                            **White's turn to move!**                             |" << std::endl;
-    else
-        std::cout << std::setw(20) << "|                            **Black's turn to move!**                             |" << std::endl;
-    std::cout
-        << "|----------------------------------------------------------------------------------|" << std::endl;
-    std::cout << std::setw(2) << "|     ";
-    std::cout << "|   A  |  |  B   |  |  C   |  |  D   |  |  E   |  |  F   |  |  G   |  |  H   |" << std::endl;
-    std::cout
-        << "|----------------------------------------------------------------------------------|" << std::endl;
-    for (int rank = RANK_8; rank >= RANK_1; rank--) {
-        std::cout << std::setw(3);
-        std::cout << "|  " << rank + 1 << " ";
-        for (int file = FILE_A; file <= FILE_H; file++) {
-            if (getChessPiece(rank, file)->getName() != "Free") {
-                std::cout << std::setw(2) << " | ";
-                if (getChessPiece(rank, file)->getColour() == BLACK)
-                    std::cout << "B_" << getChessPiece(rank, file)->getName()[0] << getChessPiece(rank, file)->getName()[1];
-                else
-                    std::cout << "W_" << getChessPiece(rank, file)->getName()[0] << getChessPiece(rank, file)->getName()[1];
-                std::cout << std::setw(2) << " | ";
-            } else {
-                std::cout << std::setw(2) << " | ";
-                std::cout << std::setw(7) << " | ";
-            }
-        }
-        std::cout << "\n"
-                  << "|----------------------------------------------------------------------------------|" << std::endl;
-    }
-}
-
 // ** PUBLIC SETTERS **
 
 bool ChessBoard::submitMove(std::string moveFrom, std::string moveTo) {
     int fromRank, fromFile, toRank, toFile;
     parseInput(moveFrom, moveTo, fromRank, fromFile, toRank, toFile);
-
     ChessPiece *pieceToMove = getChessPiece(fromRank, fromFile);
     ChessPiece *targetPosition = getChessPiece(toRank, toFile);
 

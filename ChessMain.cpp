@@ -69,7 +69,9 @@ int main() {
 
     cb.submitMove("E2", "E6");
     cb.submitMove("F7", "E6");
-    cout << '\n';
+
+    cout
+        << '\n';
 
     cb.submitMove("D3", "G6");
     cout << '\n';

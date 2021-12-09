@@ -69,8 +69,6 @@ class ChessBoard {
 
     /* This method returns the ChessPiece object at the rank and file */
     ChessPiece *getChessPiece(int rank, int file);
-    /* This method prints the current state of the game to the console */
-    void printBoard();
 
     // ** SETTERS **
 
